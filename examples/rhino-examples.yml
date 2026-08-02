@@ -1,0 +1,391 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+notes: Request and response examples carried inline by the published SayRhino Partner API OpenAPI, extracted
+  verbatim. The spec declares no components.schemas and no named examples object — every example is an
+  inline `example` on a media-type object. These are the provider's own documentation examples; no values
+  were invented.
+coverage:
+  operations_total: 12
+  operations_with_request_example: 4
+  operations_with_response_example: 9
+examples:
+- method: POST
+  path: /partners/{owner_slug}/prospects
+  summary: Create or update a prospect
+  tags:
+  - Prospects
+  request_examples:
+  - media_type: application/json
+    example:
+      prospect:
+        birthdate: '1990-05-15'
+        citizenship: us_or_green_card
+        deposit_amount_cents: 250000
+        education_level: bachelor_degree
+        email: newprospect@example.com
+        employment_status: employed
+        first_name: John
+        has_ssn: true
+        last_name: Doe
+        lease_end_date: '2026-01-31'
+        lease_start_date: '2025-02-01'
+        monthly_rent_cents: 200000
+        phone: '5559876543'
+        pms_property_id: prop-123
+        pms_prospect_id: prospect-789
+        pms_type: yardi
+        pms_unit_id: unit-456
+        screening_result: approved
+        social_security_number: '100010001'
+        source: vero
+        source_prospect_id: new-prospect-123
+        terms_accepted_at: '2025-01-15T10:30:00Z'
+        yearly_income: 75000
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      prospect:
+        application_submitted: false
+        birthdate: '1990-05-15'
+        deposit_amount_cents: 250000
+        effective_coverage_amount_cents: 250000
+        email: newprospect@example.com
+        employment_status: employed
+        enrollment_url: null
+        first_name: John
+        has_ssn: true
+        id: 43
+        last_name: Doe
+        latest_coverage: null
+        lease_end_date: '2026-01-31'
+        lease_start_date: '2025-02-01'
+        monthly_rent_cents: 200000
+        offered_products:
+        - monthly_enrollment_url: null
+          monthly_premium_cents: 1000
+          product_type: security_deposit_insurance
+          upfront_enrollment_url: null
+          upfront_premium_cents: 10000
+        - cash_deposit_amount_cents: 100000
+          enrollment_url: null
+          product_type: cash_deposit
+        percent_savings: 99.6
+        phone: '5559876543'
+        pms_property_id: prop-123
+        pms_prospect_id: prospect-789
+        pms_type: yardi
+        pms_unit_id: unit-456
+        screening_result: approved
+        source: vero
+        source_prospect_id: new-prospect-123
+        status: processing
+        yearly_income: 75000
+      status_code: 200
+  - status: '201'
+    media_type: application/json
+    example:
+      prospect:
+        application_submitted: false
+        birthdate: '1990-05-15'
+        deposit_amount_cents: 250000
+        effective_coverage_amount_cents: 250000
+        email: newprospect@example.com
+        employment_status: employed
+        enrollment_url: null
+        first_name: John
+        has_ssn: true
+        id: 33
+        last_name: Doe
+        latest_coverage: null
+        lease_end_date: '2026-01-31'
+        lease_start_date: '2025-02-01'
+        monthly_rent_cents: 200000
+        offered_products: []
+        percent_savings: null
+        phone: '5559876543'
+        pms_property_id: prop-123
+        pms_prospect_id: prospect-789
+        pms_type: yardi
+        pms_unit_id: unit-456
+        screening_result: approved
+        source: vero
+        source_prospect_id: new-prospect-123
+        status: processing
+        yearly_income: 75000
+      status_code: 201
+  - status: '422'
+    media_type: application/json
+    example:
+      error: Prospect invalid.
+      prospect:
+        enrollment_source: Enrollment source must exist
+        source: Source is not included in the list
+      status_code: 422
+- method: GET
+  path: /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+  summary: Get prospect by ID
+  tags:
+  - Prospects
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      prospect:
+        application_submitted: false
+        birthdate: '1990-01-01'
+        deposit_amount_cents: 300000
+        effective_coverage_amount_cents: 300000
+        email: test1@example.com
+        employment_status: employed
+        enrollment_url: null
+        first_name: Robbie
+        has_ssn: true
+        id: 19
+        last_name: Rhino
+        latest_coverage:
+          cadence: upfront
+          coverage_amount_cents: 200000
+          coverage_end_date: '2026-01-31'
+          coverage_start_date: '2025-02-01'
+          document_url: https://www.sayrhino.com/policies/123/documents
+          product_payment_cents: 15000
+          type: security_deposit_insurance
+        lease_end_date: '2018-02-03'
+        lease_start_date: '2017-02-10'
+        monthly_rent_cents: 150000
+        offered_products: []
+        percent_savings: null
+        phone: '5551234567'
+        pms_property_id: prop-123
+        pms_prospect_id: prospect-789
+        pms_type: yardi
+        pms_unit_id: unit-456
+        screening_result: approved
+        source: vero
+        source_prospect_id: 3pp-1
+        status: processing
+        yearly_income: 75000
+      status_code: 200
+- method: DELETE
+  path: /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+  summary: destroy
+  tags:
+  - PartnerApi::V2::Test::Resident
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      reset:
+        insurance_policy_ids:
+        - 8
+        reprocessed_prospect_id: 8
+        unlinked_yardi_resident_ids:
+        - 8
+      status_code: 200
+  - status: '404'
+    media_type: application/json
+    example:
+      error: Resident not found.
+      status_code: 404
+  - status: '422'
+    media_type: application/json
+    example:
+      error: 'RuntimeError: SayRhino teardown failed (500): {"error" => "kaboom"}'
+      status_code: 422
+- method: DELETE
+  path: /partners/{owner_slug}/test/sayrhino_users
+  summary: destroy
+  tags:
+  - PartnerApi::V2::Test::SayrhinoUser
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      reset:
+        deleted_third_party_prospect_ids:
+        - 16
+        insurance_policy_ids:
+        - 16
+        third_party_prospect_ids:
+        - 16
+        unlinked_yardi_resident_ids:
+        - 16
+      status_code: 200
+  - status: '422'
+    media_type: application/json
+    example:
+      error: 'RuntimeError: SayRhino teardown failed (500): {"error" => "kaboom"}'
+      status_code: 422
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints
+  summary: List webhook endpoints
+  tags:
+  - Webhooks
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      endpoints: []
+      status_code: 200
+- method: POST
+  path: /partners/{owner_slug}/webhooks/endpoints
+  summary: Create a webhook endpoint
+  tags:
+  - Webhooks
+  request_examples:
+  - media_type: application/json
+    example:
+      endpoint:
+        destination_url: https://new-url.example.com/hook
+        events:
+        - prospect.created
+        name: New Endpoint
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      endpoint:
+        created_at: '2017-02-03T04:05:06.000Z'
+        destination_url: https://new-url.example.com/hook
+        events:
+        - prospect.created
+        id: 30
+        name: New Endpoint
+        status: active
+        suspension_reason: null
+        updated_at: '2017-02-03T04:05:06.000Z'
+      status_code: 200
+  - status: '422'
+    media_type: application/json
+    example:
+      endpoint:
+        destination_url: Destination url must use HTTPS
+      error: Invalid endpoint params.
+      status_code: 422
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  summary: List deliveries for an endpoint
+  tags:
+  - Webhooks
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      deliveries:
+      - attempt_number: 1
+        created_at: '2017-02-03T04:05:06.000Z'
+        delivered_at: null
+        duration_ms: null
+        endpoint_id: 9
+        id: 17
+        last_attempt_failure_reason: null
+        last_attempted_at: null
+        next_retry_at: null
+        payload:
+          data:
+            insurance_policy_id: 1
+          event: policy.created
+        status: pending
+        updated_at: '2017-02-03T04:05:06.000Z'
+      meta:
+        page: 2
+        per_page: 2
+        total_count: 3
+        total_pages: 2
+      status_code: 200
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  summary: Get a specific delivery
+  tags:
+  - Webhooks
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      delivery:
+        attempt_number: 3
+        created_at: '2017-02-03T04:05:06.000Z'
+        delivered_at: null
+        duration_ms: null
+        endpoint_id: 16
+        id: 20
+        last_attempt_failure_reason: null
+        last_attempted_at: null
+        next_retry_at: null
+        payload:
+          data:
+            insurance_policy_id: 1
+          event: policy.created
+        status: failed
+        updated_at: '2017-02-03T04:05:06.000Z'
+      status_code: 200
+- method: POST
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+  summary: Retry a failed delivery
+  tags:
+  - Webhooks
+  request_examples:
+  - media_type: application/json
+    example: {}
+- method: DELETE
+  path: /partners/{owner_slug}/webhooks/endpoints/{id}
+  summary: Delete a webhook endpoint
+  tags:
+  - Webhooks
+- method: PUT
+  path: /partners/{owner_slug}/webhooks/endpoints/{id}
+  summary: Update a webhook endpoint
+  tags:
+  - Webhooks
+  request_examples:
+  - media_type: application/json
+    example:
+      endpoint:
+        destination_url: https://new-url.example.com/hook
+        events:
+        - prospect.created
+        - prospect.updated
+        status: suspended
+  response_examples:
+  - status: '200'
+    media_type: application/json
+    example:
+      endpoint:
+        created_at: '2017-02-03T04:05:06.000Z'
+        destination_url: https://example.com/webhooks/foo/bar
+        events:
+        - prospect.created
+        - prospect.ready
+        - prospect.incomplete
+        - policy.created
+        - policy.updated
+        - policy.canceled
+        - policy.expired
+        - policy.documents_updated
+        - policy_application.created
+        - policy_application.quoted
+        - policy_application.declined
+        - policy_application.submitted
+        - delinquency.created
+        - delinquency.resolved
+        id: 34
+        name: Test endpoint
+        status: suspended
+        suspension_reason: null
+        updated_at: '2017-02-03T04:05:06.000Z'
+      status_code: 200
+  - status: '422'
+    media_type: application/json
+    example:
+      endpoint:
+        destination_url: Destination url must use HTTPS
+        status: Status is invalid
+      error: Endpoint invalid.
+      status_code: 422
+- method: POST
+  path: /token
+  summary: Request an access token
+  tags:
+  - Authentication

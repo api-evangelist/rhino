@@ -1,0 +1,66 @@
+generated: '2026-08-02'
+method: searched
+source: openapi/rhino-partner-api-openapi.json
+docs: https://api.prod.sayrhino.com/docs
+summary:
+  types:
+  - http
+  - oauth2
+  api_key_in: []
+  oauth2_flows:
+  - clientCredentials
+  notes: >-
+    The OpenAPI declares a single securityScheme (http bearer, JWT) applied globally,
+    but the token is minted by a first-class OAuth 2.0 client-credentials endpoint
+    documented in the same spec (POST /token). The spec does not model that endpoint
+    as an oauth2 securityScheme, so the mechanical derive saw only the bearer half —
+    this file records both halves of the real contract.
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  applied: global
+  sources:
+  - openapi/rhino-partner-api-openapi.json
+- name: partnerTokenEndpoint
+  type: oauth2
+  flow: clientCredentials
+  token_url: https://api.prod.sayrhino.com/token
+  security: []
+  request:
+    content_type: application/json
+    grant_type: client_credentials
+    required:
+    - client_id
+    - client_secret
+    - grant_type
+    - audience
+    audience: API identifier provided during partner onboarding
+  response:
+    access_token: string
+    token_type: Bearer
+    expires_in: integer (token lifetime in seconds)
+    scope: string
+  sources:
+  - openapi/rhino-partner-api-openapi.json#/paths/~1token/post
+onboarding:
+  self_service: false
+  notes: >-
+    Credentials (client_id, client_secret, audience, and the partner owner_slug that
+    appears in every resource path) are issued by Rhino during partner onboarding via a
+    Partner Success representative. There is no public developer sign-up for the
+    Partner API.
+  portal: https://portal.sayrhino.com/users/sign_in
+observed:
+- request: POST https://api.prod.sayrhino.com/token (empty body, unauthenticated)
+  http_status: 401
+  body: '{"error":"access_denied","error_description":"Unauthorized"}'
+- request: GET https://api.prod.sayrhino.com/partners/{owner_slug}/prospects/{source}/{id}
+    (unauthenticated)
+  http_status: 401
+  body: '{"message":"Unauthorized"}'
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://api.prod.sayrhino.com/openapi.json
+  http_status: 200

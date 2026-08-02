@@ -1,0 +1,186 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+notes: >-
+  The published OpenAPI declares no components.schemas — every request and response
+  body is an inline schema. This entity graph is derived from those inline shapes and
+  from the id-reference fields that link them. Field lists are complete as published.
+entities:
+- name: PropertyOwner
+  key: owner_slug
+  key_type: string
+  identified_by: path parameter on every operation
+  example: shelby-green-ii-1
+  note: The partner-facing tenant. Not directly readable through any operation.
+- name: Prospect
+  key: id
+  key_type: integer
+  natural_key:
+  - source
+  - source_prospect_id
+  fields:
+    id: integer
+    first_name: string
+    last_name: string, nullable
+    email: string, nullable
+    phone: string, nullable
+    birthdate: string, nullable
+    has_ssn: boolean, nullable
+    social_security_number: string (write-only, request payload only)
+    citizenship: enum [us_or_green_card, non_us] (request only)
+    education_level: enum [high_school, associate_degree, bachelor_degree, masters_degree,
+      doctoral_degree] (request only)
+    employment_status: enum [full_time_student, employed, self_employed, unemployed,
+      retired, corporation]
+    yearly_income: integer, nullable
+    monthly_rent_cents: integer, nullable
+    deposit_amount_cents: integer, nullable
+    effective_coverage_amount_cents: integer, nullable
+    percent_savings: number (float), nullable
+    lease_start_date: string, nullable
+    lease_end_date: string, nullable
+    terms_accepted_at: date-time (request only)
+    screening_result: enum [approved, conditional, denied], nullable
+    status: enum [incomplete, processing, ready, error]
+    application_submitted: boolean
+    enrollment_url: nullable
+    latest_coverage: nullable
+    source: string
+    source_prospect_id: string
+    pms_type: enum [yardi], nullable
+    pms_property_id: string, nullable
+    pms_unit_id: string, nullable
+    pms_prospect_id: string, nullable
+    offered_products: array of OfferedProduct
+  operations:
+  - POST /partners/{owner_slug}/prospects
+  - GET /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+- name: OfferedProduct
+  key: null
+  embedded_in: Prospect.offered_products
+  fields:
+    product_type: enum [security_deposit_insurance, cash_deposit]
+    monthly_premium_cents: integer, nullable
+    upfront_premium_cents: integer, nullable
+    monthly_enrollment_url: nullable
+    upfront_enrollment_url: nullable
+    cash_deposit_amount_cents: integer, nullable
+    enrollment_url: nullable
+- name: InsurancePolicy
+  key: insurance_policy_id
+  key_type: integer
+  note: >-
+    Not exposed by any read operation. Surfaces only as an id inside webhook payloads
+    (policy.* events) and inside test-teardown reset responses.
+  referenced_by:
+  - webhook payload data.insurance_policy_id
+  - test reset response reset.insurance_policy_ids[]
+- name: PolicyApplication
+  key: null
+  note: >-
+    Implied by the policy_application.* webhook event family (created, quoted,
+    submitted, declined). No REST representation is published.
+- name: Delinquency
+  key: null
+  note: Implied by the delinquency.created / delinquency.resolved webhook events. No
+    REST representation is published.
+- name: WebhookEndpoint
+  key: id
+  key_type: integer
+  fields:
+    id: integer
+    name: string
+    destination_url: string (https required)
+    events: array of event name strings
+    status: enum [active, suspended, disabled]
+    suspension_reason: string, nullable
+    created_at: date-time
+    updated_at: date-time
+  operations:
+  - GET /partners/{owner_slug}/webhooks/endpoints
+  - POST /partners/{owner_slug}/webhooks/endpoints
+  - PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+  - DELETE /partners/{owner_slug}/webhooks/endpoints/{id}
+- name: WebhookDelivery
+  key: id
+  key_type: integer
+  fields:
+    id: integer
+    endpoint_id: integer
+    status: enum [pending, delivering, delivered, retrying, rate_limited, failed]
+    attempt_number: integer
+    payload: object {event, data}
+    created_at: date-time
+    last_attempted_at: date-time, nullable
+    delivered_at: date-time, nullable
+    next_retry_at: date-time, nullable
+    duration_ms: integer, nullable
+    last_attempt_failure_reason: string, nullable
+  operations:
+  - GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  - GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  - POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+- name: Resident
+  key: null
+  natural_key:
+  - source
+  - source_prospect_id
+  note: >-
+    A prospect that has been linked into the property management system. Only reachable
+    through the test-namespace teardown operation.
+  operations:
+  - DELETE /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+- name: SayRhinoUser
+  key: null
+  note: The renter account created behind a prospect. Only reachable through the
+    test-namespace teardown operation.
+  operations:
+  - DELETE /partners/{owner_slug}/test/sayrhino_users
+relationships:
+- from: PropertyOwner
+  to: Prospect
+  type: has_many
+  via: owner_slug (path scope)
+- from: PropertyOwner
+  to: WebhookEndpoint
+  type: has_many
+  via: owner_slug (path scope)
+- from: Prospect
+  to: OfferedProduct
+  type: has_many
+  via: offered_products (embedded)
+- from: Prospect
+  to: InsurancePolicy
+  type: has_many
+  via: latest_coverage / policy.* webhook events
+- from: Prospect
+  to: PolicyApplication
+  type: has_many
+  via: policy_application.* webhook events
+- from: Prospect
+  to: Resident
+  type: has_one
+  via: source + source_prospect_id
+- from: Prospect
+  to: SayRhinoUser
+  type: has_one
+  via: renter account created from the prospect
+- from: InsurancePolicy
+  to: Delinquency
+  type: has_many
+  via: delinquency.* webhook events
+- from: WebhookEndpoint
+  to: WebhookDelivery
+  type: has_many
+  via: endpoint_id
+id_conventions:
+  numeric_ids: Rhino-side ids are plain integers; there are no prefixed object ids.
+  partner_ids: >-
+    Partner-side records are addressed by the composite (source, source_prospect_id).
+    Property-management-system ids are carried separately as pms_property_id,
+    pms_unit_id and pms_prospect_id, scoped by pms_type (currently only "yardi").
+  money: All monetary amounts are integer cents (_cents suffix).
+gaps:
+- No components.schemas — nothing is reusable or $ref-able in the published spec.
+- InsurancePolicy, PolicyApplication and Delinquency have webhook events but no readable
+  REST representation.

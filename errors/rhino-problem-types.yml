@@ -1,0 +1,101 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+format: proprietary
+rfc9457: false
+notes: >-
+  Derived from every 4xx response declared in the published OpenAPI, plus two live
+  unauthenticated probes against the production host. Rhino does not use RFC 9457
+  application/problem+json; errors are a flat JSON object carrying a human-readable
+  `error` string, an echoed `status_code`, and — on validation failures — a nested
+  object keyed by the resource name whose values are per-field messages. Two different
+  401 bodies exist depending on whether the API gateway or the token endpoint rejects.
+envelope:
+  media_type: application/json
+  fields:
+    error: human-readable message
+    status_code: integer, mirrors the HTTP status
+    '<resource>': object of field -> validation message (422 only)
+problems:
+- status: 401
+  title: Unauthorized
+  media_type: application/json
+  example: '{"message":"Unauthorized"}'
+  cause: Missing, expired or invalid JWT bearer token on a partner resource.
+  remediation: Mint a fresh token with POST /token (client_credentials) and retry.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/prospects
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints
+  - openapi/rhino-partner-api-openapi.json#PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/webhooks/endpoints/{id}
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/sayrhino_users
+- status: 401
+  title: Invalid credentials
+  media_type: application/json
+  example: '{"error":"access_denied","error_description":"Unauthorized"}'
+  cause: client_id / client_secret / audience rejected at the token endpoint.
+  remediation: Confirm the credentials and the audience identifier issued during partner onboarding.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#POST /token
+- status: 404
+  title: Not found
+  media_type: application/json
+  example: '{"error":"Resident not found.","status_code":404}'
+  cause: >-
+    The owner_slug, prospect (source + source_prospect_id), webhook endpoint or delivery
+    does not exist, or is not visible to the authenticated partner.
+  remediation: Verify the owner_slug and the resource identifiers; a prospect is addressed
+    by the partner-supplied source and source_prospect_id, not by Rhino's numeric id.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/prospects
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints
+  - openapi/rhino-partner-api-openapi.json#PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/webhooks/endpoints/{id}
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  - openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/sayrhino_users
+- status: 422
+  title: Prospect invalid
+  media_type: application/json
+  example: '{"error":"Prospect invalid.","prospect":{"enrollment_source":"Enrollment source
+    must exist","source":"Source is not included in the list"},"status_code":422}'
+  cause: Prospect payload failed validation — unknown source, missing enrollment source,
+    or a field outside its allowed enum.
+  remediation: Read the per-field messages under the `prospect` key; `source` must be one
+    of the partner sources Rhino provisioned for the owner.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/prospects
+- status: 422
+  title: Invalid endpoint params
+  media_type: application/json
+  example: '{"error":"Invalid endpoint params.","endpoint":{"destination_url":"Destination
+    url must use HTTPS"},"status_code":422}'
+  cause: Webhook endpoint payload failed validation — most commonly a non-HTTPS destination_url.
+  remediation: Use an https:// destination URL; on update, `status` must be one of active,
+    suspended, disabled.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints
+  - openapi/rhino-partner-api-openapi.json#PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+- status: 422
+  title: Test teardown failed
+  media_type: application/json
+  example: '{"error":"RuntimeError: SayRhino teardown failed (500): {\"error\" => \"kaboom\"}","status_code":422}'
+  cause: A test-namespace reset could not complete server-side.
+  remediation: Retry; the `error` string carries the wrapped upstream failure.
+  source_operations:
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+  - openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/test/sayrhino_users
+gaps:
+- No 5xx responses are declared anywhere in the spec.
+- No 429 / rate-limit response is declared.
+- No stable machine-readable error codes — only human-readable strings.
+- No application/problem+json (RFC 9457) representation.

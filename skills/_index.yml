@@ -1,0 +1,30 @@
+generated: '2026-08-02'
+method: generated
+source: openapi/rhino-partner-api-openapi.json
+notes: >-
+  Packaged Agent Skills for the SayRhino Partner API v2. Rhino publishes no AGENTS.md or
+  skill files of its own (searched the docs host, api.prod.sayrhino.com and the sayrhino
+  GitHub org), so these are generated from the live OpenAPI plus the captured
+  conventions, errors and webhook artifacts. The published spec declares no
+  operationIds, so every step is grounded in a real method + path that exists verbatim
+  in openapi/rhino-partner-api-openapi.json.
+skills:
+- file: rhino-enroll-a-prospect.md
+  name: Enroll a renter prospect with Rhino
+  api: openapi/rhino-partner-api-openapi.json
+  operations:
+  - POST /token
+  - POST /partners/{owner_slug}/prospects
+  - GET /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+- file: rhino-receive-webhook-events.md
+  name: Receive and reconcile Rhino webhook events
+  api: openapi/rhino-partner-api-openapi.json
+  operations:
+  - POST /token
+  - POST /partners/{owner_slug}/webhooks/endpoints
+  - GET /partners/{owner_slug}/webhooks/endpoints
+  - PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+  - DELETE /partners/{owner_slug}/webhooks/endpoints/{id}
+  - GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  - GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  - POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry

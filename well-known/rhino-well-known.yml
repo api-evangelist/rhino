@@ -1,0 +1,81 @@
+generated: '2026-08-02'
+method: probed
+source: live HTTPS probes of every apis.yml host and the OpenAPI API host
+notes: >-
+  No /.well-known/ discovery document is published on any Rhino host. Every probe
+  returned a real 404 from the origin (the marketing host sits behind Cloudflare and
+  challenges some HTML paths, but answers /.well-known/* directly). Recorded as
+  negative evidence so later rounds do not re-probe; no WellKnown pointer is wired
+  because nothing was found.
+hosts:
+- host: https://www.sayrhino.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+- host: https://api.prod.sayrhino.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /openapi.json
+    status: 200
+    note: live OpenAPI 3.0.3 — harvested to openapi/rhino-partner-api-openapi.json
+  - path: /docs
+    status: 200
+    note: Redoc-rendered API reference for the same spec
+- host: https://portal.sayrhino.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+x-evidence:
+  fetched: '2026-08-02'
+  method: HTTPS GET, browser user-agent, HTTP/1.1

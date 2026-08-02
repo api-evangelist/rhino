@@ -1,0 +1,73 @@
+generated: '2026-08-02'
+method: derived
+status: candidate
+source: openapi/rhino-partner-api-openapi.json
+notes: >-
+  No official or third-party hosted MCP server for Rhino / SayRhino was found —
+  searched the docs, the sayrhino GitHub org, npm, and the MCP registries, and probed
+  /mcp and /sse on api.prod.sayrhino.com (both 404). This is a DERIVED candidate tool
+  list mapped one-to-one from the published Partner API operations, offered as a design
+  sketch for a future MCP server. Not published, not hosted. The published OpenAPI
+  declares no operationIds, so each tool is bound to its method + path instead.
+server:
+  name: rhino
+  transport: http
+  url: null
+auth:
+  scheme: oauth2 client_credentials -> http bearer (JWT)
+  token_endpoint: https://api.prod.sayrhino.com/token
+  note: >-
+    A tenant-scoped owner_slug is required on every call; an MCP server would need to
+    bind it per partner session rather than expose it as a free-form argument.
+tools:
+- name: create_or_update_prospect
+  description: Upsert a prospect for eligibility evaluation and return the offered products.
+  source_operation: openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/prospects
+  consequence: write
+- name: get_prospect
+  description: Fetch a prospect's status, eligibility offers and coverage by partner source
+    and source prospect id.
+  source_operation: openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/prospects/{source}/{source_prospect_id}
+  consequence: read
+- name: list_webhook_endpoints
+  description: List webhook endpoints configured for a property owner.
+  source_operation: openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints
+  consequence: read
+- name: create_webhook_endpoint
+  description: Register a new HTTPS webhook endpoint and subscribe it to events.
+  source_operation: openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints
+  consequence: write
+- name: update_webhook_endpoint
+  description: Update a webhook endpoint's destination URL, status or subscribed events.
+  source_operation: openapi/rhino-partner-api-openapi.json#PUT /partners/{owner_slug}/webhooks/endpoints/{id}
+  consequence: write
+- name: delete_webhook_endpoint
+  description: Permanently remove a webhook endpoint and cancel pending deliveries.
+  source_operation: openapi/rhino-partner-api-openapi.json#DELETE /partners/{owner_slug}/webhooks/endpoints/{id}
+  consequence: write
+- name: list_webhook_deliveries
+  description: List delivery attempts for a webhook endpoint, filterable by status and paged.
+  source_operation: openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  consequence: read
+- name: get_webhook_delivery
+  description: Fetch one webhook delivery attempt including payload and retry state.
+  source_operation: openapi/rhino-partner-api-openapi.json#GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  consequence: read
+- name: retry_webhook_delivery
+  description: Re-enqueue a failed webhook delivery for another attempt.
+  source_operation: openapi/rhino-partner-api-openapi.json#POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+  consequence: write
+excluded_operations:
+- operation: POST /token
+  reason: credential exchange — belongs in the server's auth layer, not in the tool surface
+- operation: DELETE /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+  reason: destructive test-namespace teardown; should not be agent-callable
+- operation: DELETE /partners/{owner_slug}/test/sayrhino_users
+  reason: destructive test-namespace teardown; should not be agent-callable
+x-evidence:
+  probed: '2026-08-02'
+  endpoints:
+  - url: https://api.prod.sayrhino.com/mcp
+    http_status: 404
+  - url: https://api.prod.sayrhino.com/sse
+    http_status: 404

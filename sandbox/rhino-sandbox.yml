@@ -1,0 +1,60 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+docs: https://api.prod.sayrhino.com/docs
+summary: >-
+  Rhino does not publish a separate sandbox host or a documented test-vs-live key
+  prefix scheme. What it does publish — and what makes partner integrations testable —
+  is a first-class test namespace inside the Partner API itself: two teardown
+  operations that reset a partner's test residents and test SayRhino users so a suite
+  can be re-run from a clean state. Everything below is taken verbatim from the
+  published OpenAPI; no test values are invented.
+modes:
+  separate_host: false
+  key_prefixes: none documented
+  note: >-
+    A staging environment exists in DNS (api.staging.sayrhino.com, api.stage.sayrhino.com)
+    but does not resolve publicly and is not documented for partners.
+test_namespace:
+  base_url: https://api.prod.sayrhino.com
+  operations:
+  - method: DELETE
+    path: /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}
+    summary: Reset one test resident
+    tag: PartnerApi::V2::Test::Resident
+    effect: >-
+      Unlinks Yardi residents, voids the associated insurance policies and reprocesses
+      the prospect. Returns the affected ids.
+    success_example: '{"reset":{"insurance_policy_ids":[8],"reprocessed_prospect_id":8,"unlinked_yardi_resident_ids":[8]},"status_code":200}'
+  - method: DELETE
+    path: /partners/{owner_slug}/test/sayrhino_users
+    summary: Reset all test SayRhino users for the owner
+    tag: PartnerApi::V2::Test::SayrhinoUser
+    effect: >-
+      Deletes third-party prospects, unlinks Yardi residents and clears the associated
+      insurance policies for the partner's test users.
+    success_example: '{"reset":{"deleted_third_party_prospect_ids":[16],"insurance_policy_ids":[16],"third_party_prospect_ids":[16],"unlinked_yardi_resident_ids":[16]},"status_code":200}'
+  failure_example: '{"error":"RuntimeError: SayRhino teardown failed (500): {\"error\" => \"kaboom\"}","status_code":422}'
+published_example_values:
+  note: >-
+    Example values carried by the published OpenAPI, useful for shaping a first request.
+    These are the provider's own documentation examples, not working credentials.
+  owner_slug: shelby-green-ii-1
+  source: vero
+  source_prospect_id: new-prospect-123
+  pms_type: yardi
+  pms_property_id: prop-123
+  pms_unit_id: unit-456
+  pms_prospect_id: prospect-789
+  webhook_destination_url: https://new-url.example.com/hook
+fixtures_and_triggers:
+  test_clock: false
+  event_triggers: >-
+    No fire-a-test-event endpoint. The closest published mechanism is the delivery
+    retry operation, POST /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry,
+    which re-enqueues an existing delivery against a partner endpoint.
+gaps:
+- No public sandbox host or self-service test credentials — access requires partner onboarding.
+- No documented test-vs-live key prefixes or a mode flag on the token.
+- No test clock / time simulation for lease-date or policy-expiry flows.
+- No documented magic values to force a specific screening_result or eligibility outcome.

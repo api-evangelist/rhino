@@ -1,0 +1,101 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the SayRhino Partner API
+  version: 1.0.0
+extends: openapi/rhino-partner-api-openapi.json
+x-generated: '2026-08-02'
+x-method: generated
+x-source: openapi/rhino-partner-api-openapi.json
+x-notes: >-
+  Non-destructive enhancements over Rhino's published spec. The harvested definition is
+  never mutated. These actions add the server object the spec omits, stable operationIds
+  (the spec declares none, which blocks SDK generation, Arazzo workflows and MCP tool
+  binding), the OAuth 2.0 client-credentials security scheme the /token endpoint really
+  implements, and API Evangelist artifact cross-links. All values are taken from the
+  provider's own published surface — nothing is invented.
+actions:
+- target: $
+  description: Add the production server the spec omits (it declares no servers[]).
+  update:
+    servers:
+    - url: https://api.prod.sayrhino.com
+      description: Production
+- target: $.info
+  update:
+    x-apievangelist-slug: rhino
+    x-apievangelist-artifacts:
+      authentication: authentication/rhino-authentication.yml
+      conventions: conventions/rhino-conventions.yml
+      errors: errors/rhino-problem-types.yml
+      data_model: data-model/rhino-data-model.yml
+      webhooks: asyncapi/rhino-webhooks.yml
+      sandbox: sandbox/rhino-sandbox.yml
+      lifecycle: lifecycle/rhino-lifecycle.yml
+    contact:
+      name: Rhino Partner Success
+      url: https://portal.sayrhino.com/users/sign_in
+- target: $.components.securitySchemes
+  description: Model the OAuth 2.0 client-credentials grant that POST /token actually
+    implements; the spec only declares the bearer half.
+  update:
+    partnerOAuth:
+      type: oauth2
+      description: OAuth 2.0 client-credentials grant. Credentials and the audience
+        identifier are issued during partner onboarding.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.prod.sayrhino.com/token
+          scopes: {}
+- target: $.paths['/token'].post
+  update:
+    operationId: requestAccessToken
+- target: $.paths['/partners/{owner_slug}/prospects'].post
+  update:
+    operationId: upsertProspect
+    x-idempotency:
+      mechanism: natural-key upsert
+      key_fields: [source, source_prospect_id]
+      scope: owner_slug
+- target: $.paths['/partners/{owner_slug}/prospects/{source}/{source_prospect_id}'].get
+  update:
+    operationId: getProspect
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints'].get
+  update:
+    operationId: listWebhookEndpoints
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints'].post
+  update:
+    operationId: createWebhookEndpoint
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints/{id}'].put
+  update:
+    operationId: updateWebhookEndpoint
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints/{id}'].delete
+  update:
+    operationId: deleteWebhookEndpoint
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries'].get
+  update:
+    operationId: listWebhookDeliveries
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}'].get
+  update:
+    operationId: getWebhookDelivery
+- target: $.paths['/partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry'].post
+  update:
+    operationId: retryWebhookDelivery
+- target: $.paths['/partners/{owner_slug}/test/residents/{source}/{source_prospect_id}'].delete
+  update:
+    operationId: resetTestResident
+    summary: Reset a test resident
+- target: $.paths['/partners/{owner_slug}/test/sayrhino_users'].delete
+  update:
+    operationId: resetTestSayrhinoUsers
+    summary: Reset test SayRhino users
+- target: $.tags
+  description: Replace the leaked internal Ruby controller namespaces with human tag names.
+  update:
+  - name: Authentication
+    description: Obtain a partner access token.
+  - name: Prospects
+    description: Create, update and read insurance prospects and their eligibility offers.
+  - name: Webhooks
+    description: Manage webhook endpoints, inspect deliveries and retry failures.
+  - name: Test
+    description: Reset test residents and test SayRhino users between integration runs.

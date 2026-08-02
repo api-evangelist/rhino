@@ -1,0 +1,113 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+docs: https://api.prod.sayrhino.com/docs
+api: SayRhino Partner API v2
+base_url: https://api.prod.sayrhino.com
+authentication:
+  style: OAuth 2.0 client_credentials -> JWT bearer
+  header: 'Authorization: Bearer <access_token>'
+  token_endpoint: POST /token
+  applied: 'globally (root security: [{bearerAuth: []}]), except POST /token which is public'
+  detail: authentication/rhino-authentication.yml
+tenancy:
+  model: path-scoped
+  parameter: owner_slug
+  note: >-
+    Every resource path is scoped to a property owner via the {owner_slug} path
+    parameter (example in the spec: "shelby-green-ii-1"). A partner's token is bound to
+    the owners it was onboarded for; the slug is the tenant key, not a query filter.
+idempotency:
+  supported: partial
+  mechanism: natural-key upsert
+  key_fields:
+  - source
+  - source_prospect_id
+  scope: per owner_slug
+  operation: POST /partners/{owner_slug}/prospects
+  documented_as: >-
+    "If a prospect with the same source + source_prospect_id already exists for the
+    property owner, it will be updated (upsert)." — the create operation's own response
+    description in the published OpenAPI.
+  idempotency_key_header: false
+  notes: >-
+    There is no Idempotency-Key header anywhere in the spec. Safe retry of the primary
+    write is achieved by the client-supplied composite natural key instead, which makes
+    POST /prospects genuinely replay-safe. PUT and DELETE on webhook endpoints are
+    idempotent by HTTP semantics; POST .../deliveries/{id}/retry is NOT idempotent and
+    re-enqueues an additional delivery attempt each call.
+pagination:
+  style: page-number
+  applies_to:
+  - GET /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  request_params:
+  - name: page
+    in: query
+    required: false
+  - name: per_page
+    in: query
+    required: false
+  filters:
+  - name: status
+    in: query
+    required: false
+    values: [pending, delivering, delivered, retrying, rate_limited, failed]
+  response_fields: []
+  notes: >-
+    The deliveries listing is the only paginated collection in the spec. No cursor,
+    no total-count or next-link fields are described in the published response schema.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+  note: >-
+    No free-form metadata bag. Partner-side identifiers are carried by first-class
+    fields instead — source, source_prospect_id, pms_type, pms_property_id,
+    pms_unit_id, pms_prospect_id.
+request_tracing:
+  request_id_header: null
+  observed: 'apigw-requestid response header (AWS API Gateway), not documented in the spec'
+versioning:
+  scheme: server-side major version, not in the URI path
+  current: v2
+  evidence: info.version = "v2"; internal controller tags are namespaced PartnerApi::V2::*
+  path_prefix: none
+  header: none
+  detail: lifecycle/rhino-lifecycle.yml
+error_envelope:
+  format: proprietary JSON (not RFC 9457 / application/problem+json)
+  content_type: application/json
+  shape:
+    error: human-readable message string
+    status_code: integer, mirrors the HTTP status
+    '<resource>': 'object of field -> validation message, on 422 (e.g. prospect, endpoint)'
+  auth_failure_shapes:
+  - '{"message":"Unauthorized"}'
+  - '{"error":"access_denied","error_description":"Unauthorized"}'
+  detail: errors/rhino-problem-types.yml
+rate_limiting:
+  documented: false
+  headers: none documented
+  note: >-
+    No rate-limit contract is published for the Partner API. The delivery status enum
+    does include "rate_limited", which is Rhino throttling its own outbound webhook
+    deliveries to a partner endpoint — not inbound API rate limiting.
+webhooks:
+  supported: true
+  management: API-managed (create/read/update/delete endpoints, list and retry deliveries)
+  transport_requirement: destination_url must use HTTPS (422 otherwise)
+  detail: asyncapi/rhino-webhooks.yml
+content_type:
+  request: application/json (Content-Type is a required header parameter on every write operation)
+  response: application/json
+test_mode:
+  supported: true
+  detail: sandbox/rhino-sandbox.yml
+cross_links:
+  errors: errors/rhino-problem-types.yml
+  lifecycle: lifecycle/rhino-lifecycle.yml
+  authentication: authentication/rhino-authentication.yml
+  data_model: data-model/rhino-data-model.yml
+  webhooks: asyncapi/rhino-webhooks.yml

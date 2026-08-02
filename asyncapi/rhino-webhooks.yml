@@ -1,0 +1,108 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/rhino-partner-api-openapi.json
+spec_type: none
+notes: >-
+  Rhino publishes no AsyncAPI document — searched the docs host, the api.prod host
+  (/asyncapi.yaml, /asyncapi.json), and the sayrhino GitHub org; nothing found. It does
+  ship a first-class, API-managed webhook surface, so this file captures that event
+  catalog verbatim from the published OpenAPI rather than fabricating an AsyncAPI spec.
+  The event names below are the complete enum carried by the webhook endpoint schemas.
+surface:
+  managed_by: SayRhino Partner API v2 (Webhooks tag)
+  base_url: https://api.prod.sayrhino.com
+  transport: HTTPS POST to a partner-registered destination_url
+  https_required: true
+  subscription_model: per-endpoint event subscription (endpoint.events[])
+operations:
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints
+  summary: List webhook endpoints
+- method: POST
+  path: /partners/{owner_slug}/webhooks/endpoints
+  summary: Create a webhook endpoint
+- method: PUT
+  path: /partners/{owner_slug}/webhooks/endpoints/{id}
+  summary: Update a webhook endpoint (destination_url, status, events)
+- method: DELETE
+  path: /partners/{owner_slug}/webhooks/endpoints/{id}
+  summary: Delete a webhook endpoint (cancels pending deliveries)
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries
+  summary: List delivery attempts (page, per_page, status filters)
+- method: GET
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}
+  summary: Get a single delivery including payload and retry state
+- method: POST
+  path: /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry
+  summary: Re-enqueue a failed delivery
+payload:
+  shape:
+    event: string — the event name
+    data: object — event-specific identifiers
+  example: '{"event":"policy.created","data":{"insurance_policy_id":1}}'
+  note: >-
+    Only the policy.created payload is illustrated in the published spec; the data
+    object for the remaining events is not documented publicly.
+events:
+- name: prospect.created
+  domain: prospect
+- name: prospect.updated
+  domain: prospect
+- name: prospect.ready
+  domain: prospect
+- name: prospect.incomplete
+  domain: prospect
+- name: policy_application.created
+  domain: policy_application
+- name: policy_application.quoted
+  domain: policy_application
+- name: policy_application.submitted
+  domain: policy_application
+- name: policy_application.declined
+  domain: policy_application
+- name: policy.created
+  domain: policy
+- name: policy.updated
+  domain: policy
+- name: policy.canceled
+  domain: policy
+- name: policy.expired
+  domain: policy
+- name: policy.documents_updated
+  domain: policy
+- name: delinquency.created
+  domain: delinquency
+- name: delinquency.resolved
+  domain: delinquency
+endpoint_model:
+  fields:
+    id: integer
+    name: string
+    destination_url: string (https only)
+    events: array of event names
+    status: enum [active, suspended, disabled]
+    suspension_reason: string, nullable
+    created_at: date-time
+    updated_at: date-time
+delivery_model:
+  fields:
+    id: integer
+    endpoint_id: integer
+    status: enum [pending, delivering, delivered, retrying, rate_limited, failed]
+    attempt_number: integer
+    payload: object
+    created_at: date-time
+    last_attempted_at: date-time, nullable
+    delivered_at: date-time, nullable
+    next_retry_at: date-time, nullable
+    duration_ms: integer, nullable
+    last_attempt_failure_reason: string, nullable
+  retry: automatic with next_retry_at scheduling, plus manual retry endpoint
+  throttling: 'rate_limited is a terminal-ish delivery status — Rhino throttles outbound
+    delivery to a slow partner endpoint'
+gaps:
+- No AsyncAPI document published.
+- No signature / HMAC verification scheme documented for inbound webhook payloads.
+- Per-event payload schemas are not published (only policy.created is illustrated).
+- No documented replay window or delivery-retention policy.
