@@ -34,23 +34,74 @@ tags:
 - Webhooks
 - Partner API
 apis:
-- name: SayRhino Partner API
-  description: 'API for third-party partners to create and manage insurance prospects
-    through the SayRhino platform. Partners authenticate with an OAuth 2.0 client-credentials
-    grant against POST /token to obtain a JWT bearer token, then upsert prospects for
-    eligibility evaluation, read a prospect''s status, offered products and coverage,
-    and register or manage webhook endpoints with per-delivery inspection and retry.
-    A test namespace lets partners tear down test residents and users between runs.'
+- aid: rhino:rhino-authentication-api
+  name: Rhino Authentication API
+  description: The Authentication API from Rhino — 1 operation(s) for authentication.
   humanURL: https://api.prod.sayrhino.com/docs
   baseURL: https://api.prod.sayrhino.com
   tags:
-  - Insurance
-  - Prospects
-  - Webhooks
   - Authentication
   properties:
   - type: OpenAPI
-    url: openapi/rhino-partner-api-openapi.json
+    url: openapi/rhino-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://api.prod.sayrhino.com/docs
+  - type: APIReference
+    url: https://api.prod.sayrhino.com/docs
+- aid: rhino:rhino-partnerapi-v2-test-resident-api
+  name: Rhino Partner Api::V2::Test::Resident API
+  description: >-
+    The PartnerApi::V2::Test::Resident API from Rhino — 1 operation(s) for partnerapi::v2::test::resident.
+  humanURL: https://api.prod.sayrhino.com/docs
+  baseURL: https://api.prod.sayrhino.com
+  tags:
+  - PartnerApi::V2::Test::Resident
+  properties:
+  - type: OpenAPI
+    url: openapi/rhino-partnerapi-v2-test-resident-api-openapi.yml
+  - type: Documentation
+    url: https://api.prod.sayrhino.com/docs
+  - type: APIReference
+    url: https://api.prod.sayrhino.com/docs
+- aid: rhino:rhino-partnerapi-v2-test-sayrhinouser-api
+  name: Rhino Partner Api::V2::Test::Sayrhino User API
+  description: >-
+    The PartnerApi::V2::Test::SayrhinoUser API from Rhino — 1 operation(s) for partnerapi::v2::test::sayrhinouser.
+  humanURL: https://api.prod.sayrhino.com/docs
+  baseURL: https://api.prod.sayrhino.com
+  tags:
+  - PartnerApi::V2::Test::SayrhinoUser
+  properties:
+  - type: OpenAPI
+    url: openapi/rhino-partnerapi-v2-test-sayrhinouser-api-openapi.yml
+  - type: Documentation
+    url: https://api.prod.sayrhino.com/docs
+  - type: APIReference
+    url: https://api.prod.sayrhino.com/docs
+- aid: rhino:rhino-prospects-api
+  name: Rhino Prospects API
+  description: The Prospects API from Rhino — 2 operation(s) for prospects.
+  humanURL: https://api.prod.sayrhino.com/docs
+  baseURL: https://api.prod.sayrhino.com
+  tags:
+  - Prospects
+  properties:
+  - type: OpenAPI
+    url: openapi/rhino-prospects-api-openapi.yml
+  - type: Documentation
+    url: https://api.prod.sayrhino.com/docs
+  - type: APIReference
+    url: https://api.prod.sayrhino.com/docs
+- aid: rhino:rhino-webhooks-api
+  name: Rhino Webhooks API
+  description: The Webhooks API from Rhino — 5 operation(s) for webhooks.
+  humanURL: https://api.prod.sayrhino.com/docs
+  baseURL: https://api.prod.sayrhino.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/rhino-webhooks-api-openapi.yml
   - type: Documentation
     url: https://api.prod.sayrhino.com/docs
   - type: APIReference
