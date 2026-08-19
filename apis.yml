@@ -15,7 +15,7 @@ image: https://www.sayrhino.com/assets/rhino_favicon_website_144x144-b7265da417b
 url: https://raw.githubusercontent.com/api-evangelist/rhino/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 x-enrichment:
