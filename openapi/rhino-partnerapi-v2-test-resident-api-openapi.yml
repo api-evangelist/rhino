@@ -1,0 +1,129 @@
+openapi: 3.2.0
+info:
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino
+    platform.
+  title: SayRhino Partner Partner Api::V2::Test::Resident API
+  version: v2
+security:
+- bearerAuth: []
+tags:
+- name: PartnerApi::V2::Test::Resident
+paths:
+  /partners/{owner_slug}/test/residents/{source}/{source_prospect_id}:
+    delete:
+      parameters:
+      - example: application/x-www-form-urlencoded
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: colette-schiller-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      - example: yardi
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - example: resident-123
+        in: path
+        name: source_prospect_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                reset:
+                  insurance_policy_ids:
+                  - 8
+                  reprocessed_prospect_id: 8
+                  unlinked_yardi_resident_ids:
+                  - 8
+                status_code: 200
+              schema:
+                properties:
+                  reset:
+                    properties:
+                      insurance_policy_ids:
+                        items:
+                          type: integer
+                        type: array
+                      reprocessed_prospect_id:
+                        type: integer
+                      unlinked_yardi_resident_ids:
+                        items:
+                          type: integer
+                        type: array
+                    required:
+                    - insurance_policy_ids
+                    - unlinked_yardi_resident_ids
+                    - reprocessed_prospect_id
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - reset
+                type: object
+          description: runs the reset and returns success
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: returns unauthorized
+        '404':
+          content:
+            application/json:
+              example:
+                error: Resident not found.
+                status_code: 404
+              schema:
+                properties:
+                  error:
+                    type: string
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                type: object
+          description: returns not found
+        '422':
+          content:
+            application/json:
+              example:
+                error: 'RuntimeError: SayRhino teardown failed (500): {"error" => "kaboom"}'
+                status_code: 422
+              schema:
+                properties:
+                  error:
+                    type: string
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                type: object
+          description: returns unprocessable entity with the error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+      summary: destroy
+      tags:
+      - PartnerApi::V2::Test::Resident
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

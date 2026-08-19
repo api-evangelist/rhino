@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SayRhino Partner Prospects API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prospects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partners/:owner_slug/prospects",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "shelby-green-ii-1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update a prospect"
+        },
+        {
+          "info": {
+            "name": "Get prospect by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partners/:owner_slug/prospects/:source/:source_prospect_id",
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "denita-strosin-esq-1",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "vero",
+                "type": "path"
+              },
+              {
+                "name": "source_prospect_id",
+                "value": "3pp-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get prospect by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

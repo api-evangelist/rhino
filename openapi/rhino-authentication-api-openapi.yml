@@ -1,0 +1,68 @@
+openapi: 3.2.0
+info:
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino
+    platform.
+  title: SayRhino Partner Authentication API
+  version: v2
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+paths:
+  /token:
+    post:
+      description: Obtain a JWT via OAuth2 client_credentials grant.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                audience:
+                  description: API identifier provided during onboarding
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                grant_type:
+                  enum:
+                  - client_credentials
+                  type: string
+              required:
+              - client_id
+              - client_secret
+              - grant_type
+              - audience
+              type: object
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token:
+                    type: string
+                  expires_in:
+                    description: Token lifetime in seconds
+                    type: integer
+                  scope:
+                    type: string
+                  token_type:
+                    enum:
+                    - Bearer
+                    type: string
+                type: object
+          description: Token issued
+        '401':
+          description: Invalid credentials
+      security: []
+      summary: Request an access token
+      tags:
+      - Authentication
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

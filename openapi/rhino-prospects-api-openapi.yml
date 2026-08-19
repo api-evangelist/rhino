@@ -1,0 +1,800 @@
+openapi: 3.2.0
+info:
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino
+    platform.
+  title: SayRhino Partner Prospects API
+  version: v2
+security:
+- bearerAuth: []
+tags:
+- name: Prospects
+paths:
+  /partners/{owner_slug}/prospects:
+    post:
+      parameters:
+      - example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: shelby-green-ii-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              prospect:
+                birthdate: '1990-05-15'
+                citizenship: us_or_green_card
+                deposit_amount_cents: 250000
+                education_level: bachelor_degree
+                email: newprospect@example.com
+                employment_status: employed
+                first_name: John
+                has_ssn: true
+                last_name: Doe
+                lease_end_date: '2026-01-31'
+                lease_start_date: '2025-02-01'
+                monthly_rent_cents: 200000
+                phone: '5559876543'
+                pms_property_id: prop-123
+                pms_prospect_id: prospect-789
+                pms_type: yardi
+                pms_unit_id: unit-456
+                screening_result: approved
+                social_security_number: '100010001'
+                source: vero
+                source_prospect_id: new-prospect-123
+                terms_accepted_at: '2025-01-15T10:30:00Z'
+                yearly_income: 75000
+            schema:
+              properties:
+                prospect:
+                  properties:
+                    birthdate:
+                      type: string
+                    citizenship:
+                      enum:
+                      - us_or_green_card
+                      - non_us
+                      type: string
+                    deposit_amount_cents:
+                      type: integer
+                    education_level:
+                      enum:
+                      - high_school
+                      - associate_degree
+                      - bachelor_degree
+                      - masters_degree
+                      - doctoral_degree
+                      type: string
+                    email:
+                      type: string
+                    employment_status:
+                      enum:
+                      - full_time_student
+                      - employed
+                      - self_employed
+                      - unemployed
+                      - retired
+                      - corporation
+                      type: string
+                    first_name:
+                      type: string
+                    has_ssn:
+                      type: boolean
+                    last_name:
+                      type: string
+                    lease_end_date:
+                      type: string
+                    lease_start_date:
+                      type: string
+                    monthly_rent_cents:
+                      type: integer
+                    phone:
+                      type: string
+                    pms_property_id:
+                      type: string
+                    pms_prospect_id:
+                      type: string
+                    pms_type:
+                      enum:
+                      - yardi
+                      type: string
+                    pms_unit_id:
+                      type: string
+                    screening_result:
+                      enum:
+                      - approved
+                      - conditional
+                      - denied
+                      type: string
+                    social_security_number:
+                      type: string
+                    source:
+                      type: string
+                    source_prospect_id:
+                      type: string
+                    terms_accepted_at:
+                      format: date-time
+                      type: string
+                    yearly_income:
+                      type: integer
+                  required:
+                  - source
+                  - source_prospect_id
+                  type: object
+              required:
+              - prospect
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                prospect:
+                  application_submitted: false
+                  birthdate: '1990-05-15'
+                  deposit_amount_cents: 250000
+                  effective_coverage_amount_cents: 250000
+                  email: newprospect@example.com
+                  employment_status: employed
+                  enrollment_url: null
+                  first_name: John
+                  has_ssn: true
+                  id: 43
+                  last_name: Doe
+                  latest_coverage: null
+                  lease_end_date: '2026-01-31'
+                  lease_start_date: '2025-02-01'
+                  monthly_rent_cents: 200000
+                  offered_products:
+                  - monthly_enrollment_url: null
+                    monthly_premium_cents: 1000
+                    product_type: security_deposit_insurance
+                    upfront_enrollment_url: null
+                    upfront_premium_cents: 10000
+                  - cash_deposit_amount_cents: 100000
+                    enrollment_url: null
+                    product_type: cash_deposit
+                  percent_savings: 99.6
+                  phone: '5559876543'
+                  pms_property_id: prop-123
+                  pms_prospect_id: prospect-789
+                  pms_type: yardi
+                  pms_unit_id: unit-456
+                  screening_result: approved
+                  source: vero
+                  source_prospect_id: new-prospect-123
+                  status: processing
+                  yearly_income: 75000
+                status_code: 200
+              schema:
+                properties:
+                  prospect:
+                    properties:
+                      application_submitted:
+                        type: boolean
+                      birthdate:
+                        type:
+                        - string
+                        - 'null'
+                      deposit_amount_cents:
+                        type:
+                        - integer
+                        - 'null'
+                      effective_coverage_amount_cents:
+                        type:
+                        - integer
+                        - 'null'
+                      email:
+                        type:
+                        - string
+                        - 'null'
+                      employment_status:
+                        enum:
+                        - full_time_student
+                        - employed
+                        - self_employed
+                        - unemployed
+                        - retired
+                        - corporation
+                        type:
+                        - string
+                        - 'null'
+                      enrollment_url: {}
+                      first_name:
+                        type: string
+                      has_ssn:
+                        type:
+                        - boolean
+                        - 'null'
+                      id:
+                        type: integer
+                      last_name:
+                        type:
+                        - string
+                        - 'null'
+                      latest_coverage: {}
+                      lease_end_date:
+                        type:
+                        - string
+                        - 'null'
+                      lease_start_date:
+                        type:
+                        - string
+                        - 'null'
+                      monthly_rent_cents:
+                        type:
+                        - integer
+                        - 'null'
+                      offered_products:
+                        items:
+                          properties:
+                            cash_deposit_amount_cents:
+                              type:
+                              - integer
+                              - 'null'
+                            enrollment_url: {}
+                            monthly_enrollment_url: {}
+                            monthly_premium_cents:
+                              type:
+                              - integer
+                              - 'null'
+                            product_type:
+                              enum:
+                              - security_deposit_insurance
+                              - cash_deposit
+                              type: string
+                            upfront_enrollment_url: {}
+                            upfront_premium_cents:
+                              type:
+                              - integer
+                              - 'null'
+                          required:
+                          - product_type
+                          type: object
+                        type: array
+                      percent_savings:
+                        format: float
+                        type:
+                        - number
+                        - 'null'
+                      phone:
+                        type:
+                        - string
+                        - 'null'
+                      pms_property_id:
+                        type:
+                        - string
+                        - 'null'
+                      pms_prospect_id:
+                        type:
+                        - string
+                        - 'null'
+                      pms_type:
+                        enum:
+                        - yardi
+                        type:
+                        - string
+                        - 'null'
+                      pms_unit_id:
+                        type:
+                        - string
+                        - 'null'
+                      screening_result:
+                        enum:
+                        - approved
+                        - conditional
+                        - denied
+                        type:
+                        - string
+                        - 'null'
+                      source:
+                        type: string
+                      source_prospect_id:
+                        type: string
+                      status:
+                        enum:
+                        - incomplete
+                        - processing
+                        - ready
+                        - error
+                        type: string
+                      yearly_income:
+                        type:
+                        - integer
+                        - 'null'
+                    required:
+                    - id
+                    - source
+                    - source_prospect_id
+                    - email
+                    - phone
+                    - first_name
+                    - last_name
+                    - lease_start_date
+                    - lease_end_date
+                    - screening_result
+                    - monthly_rent_cents
+                    - birthdate
+                    - employment_status
+                    - yearly_income
+                    - has_ssn
+                    - pms_type
+                    - pms_property_id
+                    - pms_unit_id
+                    - pms_prospect_id
+                    - deposit_amount_cents
+                    - effective_coverage_amount_cents
+                    - percent_savings
+                    - enrollment_url
+                    - offered_products
+                    - status
+                    - application_submitted
+                    - latest_coverage
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - prospect
+                type: object
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
+            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
+            the prospect with current eligibility status and offered products.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '201':
+          content:
+            application/json:
+              example:
+                prospect:
+                  application_submitted: false
+                  birthdate: '1990-05-15'
+                  deposit_amount_cents: 250000
+                  effective_coverage_amount_cents: 250000
+                  email: newprospect@example.com
+                  employment_status: employed
+                  enrollment_url: null
+                  first_name: John
+                  has_ssn: true
+                  id: 33
+                  last_name: Doe
+                  latest_coverage: null
+                  lease_end_date: '2026-01-31'
+                  lease_start_date: '2025-02-01'
+                  monthly_rent_cents: 200000
+                  offered_products: []
+                  percent_savings: null
+                  phone: '5559876543'
+                  pms_property_id: prop-123
+                  pms_prospect_id: prospect-789
+                  pms_type: yardi
+                  pms_unit_id: unit-456
+                  screening_result: approved
+                  source: vero
+                  source_prospect_id: new-prospect-123
+                  status: processing
+                  yearly_income: 75000
+                status_code: 201
+              schema:
+                properties:
+                  prospect:
+                    properties:
+                      application_submitted:
+                        type: boolean
+                      birthdate:
+                        type: string
+                      deposit_amount_cents:
+                        type: integer
+                      effective_coverage_amount_cents:
+                        type:
+                        - integer
+                        - 'null'
+                      email:
+                        type: string
+                      employment_status:
+                        enum:
+                        - full_time_student
+                        - employed
+                        - self_employed
+                        - unemployed
+                        - retired
+                        - corporation
+                        type: string
+                      enrollment_url: {}
+                      first_name:
+                        type: string
+                      has_ssn:
+                        type: boolean
+                      id:
+                        type: integer
+                      last_name:
+                        type: string
+                      latest_coverage: {}
+                      lease_end_date:
+                        type: string
+                      lease_start_date:
+                        type: string
+                      monthly_rent_cents:
+                        type: integer
+                      offered_products:
+                        items: {}
+                        type: array
+                      percent_savings: {}
+                      phone:
+                        type: string
+                      pms_property_id:
+                        type: string
+                      pms_prospect_id:
+                        type: string
+                      pms_type:
+                        enum:
+                        - yardi
+                        type: string
+                      pms_unit_id:
+                        type: string
+                      screening_result:
+                        enum:
+                        - approved
+                        - conditional
+                        - denied
+                        type: string
+                      source:
+                        type: string
+                      source_prospect_id:
+                        type: string
+                      status:
+                        enum:
+                        - incomplete
+                        - processing
+                        - ready
+                        - error
+                        type: string
+                      yearly_income:
+                        type: integer
+                    required:
+                    - id
+                    - source
+                    - source_prospect_id
+                    - email
+                    - phone
+                    - first_name
+                    - last_name
+                    - lease_start_date
+                    - lease_end_date
+                    - screening_result
+                    - monthly_rent_cents
+                    - birthdate
+                    - employment_status
+                    - yearly_income
+                    - has_ssn
+                    - pms_type
+                    - pms_property_id
+                    - pms_unit_id
+                    - pms_prospect_id
+                    - deposit_amount_cents
+                    - effective_coverage_amount_cents
+                    - percent_savings
+                    - enrollment_url
+                    - offered_products
+                    - status
+                    - application_submitted
+                    - latest_coverage
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - prospect
+                type: object
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
+            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
+            the prospect with current eligibility status and offered products.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
+            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
+            the prospect with current eligibility status and offered products.
+        '404':
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
+            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
+            the prospect with current eligibility status and offered products.
+        '422':
+          content:
+            application/json:
+              example:
+                error: Prospect invalid.
+                prospect:
+                  enrollment_source: Enrollment source must exist
+                  source: Source is not included in the list
+                status_code: 422
+              schema:
+                properties:
+                  error:
+                    type: string
+                  prospect:
+                    properties:
+                      enrollment_source:
+                        type: string
+                      source:
+                        type: string
+                    required:
+                    - source
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                - prospect
+                type: object
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
+            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
+            the prospect with current eligibility status and offered products.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+      summary: Create or update a prospect
+      tags:
+      - Prospects
+  /partners/{owner_slug}/prospects/{source}/{source_prospect_id}:
+    get:
+      parameters:
+      - example: denita-strosin-esq-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      - example: vero
+        in: path
+        name: source
+        required: true
+        schema:
+          type: string
+      - example: 3pp-1
+        in: path
+        name: source_prospect_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                prospect:
+                  application_submitted: false
+                  birthdate: '1990-01-01'
+                  deposit_amount_cents: 300000
+                  effective_coverage_amount_cents: 300000
+                  email: test1@example.com
+                  employment_status: employed
+                  enrollment_url: null
+                  first_name: Robbie
+                  has_ssn: true
+                  id: 19
+                  last_name: Rhino
+                  latest_coverage:
+                    cadence: upfront
+                    coverage_amount_cents: 200000
+                    coverage_end_date: '2026-01-31'
+                    coverage_start_date: '2025-02-01'
+                    document_url: https://www.sayrhino.com/policies/123/documents
+                    product_payment_cents: 15000
+                    type: security_deposit_insurance
+                  lease_end_date: '2018-02-03'
+                  lease_start_date: '2017-02-10'
+                  monthly_rent_cents: 150000
+                  offered_products: []
+                  percent_savings: null
+                  phone: '5551234567'
+                  pms_property_id: prop-123
+                  pms_prospect_id: prospect-789
+                  pms_type: yardi
+                  pms_unit_id: unit-456
+                  screening_result: approved
+                  source: vero
+                  source_prospect_id: 3pp-1
+                  status: processing
+                  yearly_income: 75000
+                status_code: 200
+              schema:
+                properties:
+                  prospect:
+                    properties:
+                      application_submitted:
+                        type: boolean
+                      birthdate:
+                        type: string
+                      deposit_amount_cents:
+                        type: integer
+                      effective_coverage_amount_cents:
+                        type:
+                        - integer
+                        - 'null'
+                      email:
+                        type: string
+                      employment_status:
+                        enum:
+                        - full_time_student
+                        - employed
+                        - self_employed
+                        - unemployed
+                        - retired
+                        - corporation
+                        type: string
+                      enrollment_url: {}
+                      first_name:
+                        type: string
+                      has_ssn:
+                        type: boolean
+                      id:
+                        type: integer
+                      last_name:
+                        type: string
+                      latest_coverage:
+                        properties:
+                          cadence:
+                            type: string
+                          coverage_amount_cents:
+                            type: integer
+                          coverage_end_date:
+                            type: string
+                          coverage_start_date:
+                            type: string
+                          document_url:
+                            type: string
+                          product_payment_cents:
+                            type: integer
+                          type:
+                            type: string
+                        required:
+                        - type
+                        - product_payment_cents
+                        - cadence
+                        - coverage_start_date
+                        - coverage_end_date
+                        - coverage_amount_cents
+                        - document_url
+                        type:
+                        - object
+                        - 'null'
+                      lease_end_date:
+                        type: string
+                      lease_start_date:
+                        type: string
+                      monthly_rent_cents:
+                        type: integer
+                      offered_products:
+                        items:
+                          properties:
+                            cash_deposit_amount_cents:
+                              type:
+                              - integer
+                              - 'null'
+                            enrollment_url: {}
+                            monthly_enrollment_url: {}
+                            monthly_premium_cents:
+                              type:
+                              - integer
+                              - 'null'
+                            product_type:
+                              enum:
+                              - security_deposit_insurance
+                              - cash_deposit
+                              type: string
+                            upfront_enrollment_url: {}
+                            upfront_premium_cents:
+                              type:
+                              - integer
+                              - 'null'
+                          required:
+                          - product_type
+                          type: object
+                        type: array
+                      percent_savings:
+                        format: float
+                        type:
+                        - number
+                        - 'null'
+                      phone:
+                        type: string
+                      pms_property_id:
+                        type: string
+                      pms_prospect_id:
+                        type: string
+                      pms_type:
+                        enum:
+                        - yardi
+                        type: string
+                      pms_unit_id:
+                        type: string
+                      screening_result:
+                        enum:
+                        - approved
+                        - conditional
+                        - denied
+                        type: string
+                      source:
+                        type: string
+                      source_prospect_id:
+                        type: string
+                      status:
+                        enum:
+                        - incomplete
+                        - processing
+                        - ready
+                        - error
+                        type: string
+                      yearly_income:
+                        type: integer
+                    required:
+                    - id
+                    - source
+                    - source_prospect_id
+                    - email
+                    - phone
+                    - first_name
+                    - last_name
+                    - lease_start_date
+                    - lease_end_date
+                    - screening_result
+                    - monthly_rent_cents
+                    - birthdate
+                    - employment_status
+                    - yearly_income
+                    - has_ssn
+                    - pms_type
+                    - pms_property_id
+                    - pms_unit_id
+                    - pms_prospect_id
+                    - deposit_amount_cents
+                    - effective_coverage_amount_cents
+                    - percent_savings
+                    - enrollment_url
+                    - offered_products
+                    - status
+                    - application_submitted
+                    - latest_coverage
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - prospect
+                type: object
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
+            this to check whether a prospect has been processed and what products are available.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
+            this to check whether a prospect has been processed and what products are available.
+        '404':
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
+            this to check whether a prospect has been processed and what products are available.
+      summary: Get prospect by ID
+      tags:
+      - Prospects
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

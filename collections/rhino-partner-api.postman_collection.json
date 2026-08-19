@@ -1,0 +1,3423 @@
+{
+  "item": [
+    {
+      "id": "258308d4-044e-4f11-9892-e2b20733226b",
+      "name": "Authentication",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0247c11-eef3-4547-ab2a-6120a8def58a",
+          "name": "Request an access token",
+          "request": {
+            "name": "Request an access token",
+            "description": {
+              "content": "Obtain a JWT via OAuth2 client_credentials grant.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"<string>\",\n  \"audience\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b47bfd2f-e376-4cb4-ad3f-9295995856f2",
+              "name": "Token issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"<string>\",\n  \"audience\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"expires_in\": 56,\n  \"scope\": \"string\",\n  \"token_type\": \"Bearer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e8ebebb-cc00-4365-bff3-175960439326",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"<string>\",\n  \"audience\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "70831b7d-3037-4516-b521-07d417962cbb",
+      "name": "Prospects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04a176d4-a199-47bd-a914-5f3acbbfdf79",
+          "name": "Create or update a prospect",
+          "request": {
+            "name": "Create or update a prospect",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "prospects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prospect\": {\n    \"source\": \"<string>\",\n    \"source_prospect_id\": \"<string>\",\n    \"birthdate\": \"<string>\",\n    \"citizenship\": \"<string>\",\n    \"deposit_amount_cents\": \"<integer>\",\n    \"education_level\": \"<string>\",\n    \"email\": \"<string>\",\n    \"employment_status\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"has_ssn\": \"<boolean>\",\n    \"last_name\": \"<string>\",\n    \"lease_end_date\": \"<string>\",\n    \"lease_start_date\": \"<string>\",\n    \"monthly_rent_cents\": \"<integer>\",\n    \"phone\": \"<string>\",\n    \"pms_property_id\": \"<string>\",\n    \"pms_prospect_id\": \"<string>\",\n    \"pms_type\": \"<string>\",\n    \"pms_unit_id\": \"<string>\",\n    \"screening_result\": \"<string>\",\n    \"social_security_number\": \"<string>\",\n    \"terms_accepted_at\": \"<dateTime>\",\n    \"yearly_income\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "062be104-8ff3-454b-86ff-aed6640ef5ca",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-05-15\",\n    \"deposit_amount_cents\": 250000,\n    \"effective_coverage_amount_cents\": 250000,\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"id\": 43,\n    \"last_name\": \"Doe\",\n    \"latest_coverage\": null,\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"offered_products\": [\n      {\n        \"monthly_enrollment_url\": null,\n        \"monthly_premium_cents\": 1000,\n        \"product_type\": \"security_deposit_insurance\",\n        \"upfront_enrollment_url\": null,\n        \"upfront_premium_cents\": 10000\n      },\n      {\n        \"cash_deposit_amount_cents\": 100000,\n        \"enrollment_url\": null,\n        \"product_type\": \"cash_deposit\"\n      }\n    ],\n    \"percent_savings\": 99.6,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f269be2d-e59b-428b-8e41-627d298ff4ba",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-05-15\",\n    \"deposit_amount_cents\": 250000,\n    \"effective_coverage_amount_cents\": 250000,\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"id\": 33,\n    \"last_name\": \"Doe\",\n    \"latest_coverage\": null,\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"offered_products\": [],\n    \"percent_savings\": null,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 201\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62264604-c4e9-4d93-adb3-ceec0d386de4",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a8ac11c-814a-47df-81a4-08e331b986da",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f8aa938-e987-47f7-8903-a1c49650c9fb",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Prospect invalid.\",\n  \"prospect\": {\n    \"enrollment_source\": \"Enrollment source must exist\",\n    \"source\": \"Source is not included in the list\"\n  },\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d18e886-2302-42de-9f19-e11ce29fbc1d",
+          "name": "Get prospect by ID",
+          "request": {
+            "name": "Get prospect by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "prospects",
+                ":source",
+                ":source_prospect_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source_prospect_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc5c87c8-1af1-4f11-9a02-79b788dcbc84",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-01-01\",\n    \"deposit_amount_cents\": 300000,\n    \"effective_coverage_amount_cents\": 300000,\n    \"email\": \"test1@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"Robbie\",\n    \"has_ssn\": true,\n    \"id\": 19,\n    \"last_name\": \"Rhino\",\n    \"latest_coverage\": {\n      \"cadence\": \"upfront\",\n      \"coverage_amount_cents\": 200000,\n      \"coverage_end_date\": \"2026-01-31\",\n      \"coverage_start_date\": \"2025-02-01\",\n      \"document_url\": \"https://www.sayrhino.com/policies/123/documents\",\n      \"product_payment_cents\": 15000,\n      \"type\": \"security_deposit_insurance\"\n    },\n    \"lease_end_date\": \"2018-02-03\",\n    \"lease_start_date\": \"2017-02-10\",\n    \"monthly_rent_cents\": 150000,\n    \"offered_products\": [],\n    \"percent_savings\": null,\n    \"phone\": \"5551234567\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"3pp-1\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80456d31-982a-4c0e-9c27-ac71ce10c3dc",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da815137-6365-48b5-93c5-5c697afb7ab9",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b6d5a799-1784-43ad-8af2-d790231598fb",
+      "name": "PartnerApi::V2::Test::Resident",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6c0c45d-463b-40fe-9d4f-56f1fd2d0e32",
+          "name": "destroy",
+          "request": {
+            "name": "destroy",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "test",
+                "residents",
+                ":source",
+                ":source_prospect_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source_prospect_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5de2fa51-3ae4-44d7-ac79-8ce3afa028e0",
+              "name": "runs the reset and returns success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "residents",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reset\": {\n    \"insurance_policy_ids\": [\n      8\n    ],\n    \"reprocessed_prospect_id\": 8,\n    \"unlinked_yardi_resident_ids\": [\n      8\n    ]\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3532a8c1-9004-4df1-8a7c-ac6005125354",
+              "name": "returns unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "residents",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c70ec69-a564-46cc-9790-e74a2f688da5",
+              "name": "returns not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "residents",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Resident not found.\",\n  \"status_code\": 404\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2a4392c-1b03-4389-924f-7cccbee86466",
+              "name": "returns unprocessable entity with the error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "residents",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"RuntimeError: SayRhino teardown failed (500): {\\\"error\\\" => \\\"kaboom\\\"}\",\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "89dca85e-71ea-4807-904b-089c3b39dff0",
+      "name": "PartnerApi::V2::Test::SayrhinoUser",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85f9743c-6937-4b5e-9e54-660c609ab76f",
+          "name": "destroy",
+          "request": {
+            "name": "destroy",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "test",
+                "sayrhino_users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f39805bb-90c6-45d3-a9f1-aed844e12b18",
+              "name": "runs the reset and returns success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "sayrhino_users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reset\": {\n    \"deleted_third_party_prospect_ids\": [\n      16\n    ],\n    \"insurance_policy_ids\": [\n      16\n    ],\n    \"third_party_prospect_ids\": [\n      16\n    ],\n    \"unlinked_yardi_resident_ids\": [\n      16\n    ]\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f039007-fd83-411d-b1e8-73a43bef797b",
+              "name": "returns unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "sayrhino_users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b842696-db21-443f-81ad-ab8fcce36b0e",
+              "name": "returns not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "sayrhino_users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a7ddec9-a2de-48a1-913b-2eed17776be0",
+              "name": "returns unprocessable entity with the error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "test",
+                    "sayrhino_users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"RuntimeError: SayRhino teardown failed (500): {\\\"error\\\" => \\\"kaboom\\\"}\",\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f13550b2-0a3c-433d-8b05-3347a4a867af",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "033c08b9-e036-4740-990a-22acd5be206d",
+          "name": "List webhook endpoints",
+          "request": {
+            "name": "List webhook endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d1582f8-7a7e-492f-a502-3964b746506d",
+              "name": "List all webhook endpoints configured for a property owner.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoints\": [],\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "362066f3-b33e-4ef4-a2f4-cb131c3b7e63",
+              "name": "List all webhook endpoints configured for a property owner.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad253b05-ce75-442d-8912-6006cd1b0008",
+              "name": "List all webhook endpoints configured for a property owner.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4436e0bc-d380-476e-be8e-9ee01e898d23",
+          "name": "Create a webhook endpoint",
+          "request": {
+            "name": "Create a webhook endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"<string>\",\n    \"name\": \"<string>\",\n    \"events\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8e73546-6c80-422b-95d9-f188eddfb1b6",
+              "name": "Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\"\n    ],\n    \"name\": \"New Endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": {\n    \"created_at\": \"2017-02-03T04:05:06.000Z\",\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\"\n    ],\n    \"id\": 30,\n    \"name\": \"New Endpoint\",\n    \"status\": \"active\",\n    \"suspension_reason\": null,\n    \"updated_at\": \"2017-02-03T04:05:06.000Z\"\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5aa2737e-9646-45cd-bb2b-c31425cebf34",
+              "name": "Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\"\n    ],\n    \"name\": \"New Endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "34a19acf-5afc-40c1-aaaf-2d294166356d",
+              "name": "Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\"\n    ],\n    \"name\": \"New Endpoint\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": {\n    \"destination_url\": \"Destination url must use HTTPS\"\n  },\n  \"error\": \"Invalid endpoint params.\",\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0b2e6c2-59d4-4f70-9813-749cd5aa2eae",
+          "name": "List deliveries for an endpoint",
+          "request": {
+            "name": "List deliveries for an endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints",
+                ":endpoint_id",
+                "deliveries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "endpoint_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "832e1825-bd2a-4e9f-a395-2044f3382616",
+              "name": "List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "status",
+                      "value": "retrying"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deliveries\": [\n    {\n      \"attempt_number\": 1,\n      \"created_at\": \"2017-02-03T04:05:06.000Z\",\n      \"delivered_at\": null,\n      \"duration_ms\": null,\n      \"endpoint_id\": 9,\n      \"id\": 17,\n      \"last_attempt_failure_reason\": null,\n      \"last_attempted_at\": null,\n      \"next_retry_at\": null,\n      \"payload\": {\n        \"data\": {\n          \"insurance_policy_id\": 1\n        },\n        \"event\": \"policy.created\"\n      },\n      \"status\": \"pending\",\n      \"updated_at\": \"2017-02-03T04:05:06.000Z\"\n    }\n  ],\n  \"meta\": {\n    \"page\": 2,\n    \"per_page\": 2,\n    \"total_count\": 3,\n    \"total_pages\": 2\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afdb321d-890d-4dd8-a97a-518fb66e98a6",
+              "name": "List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "status",
+                      "value": "retrying"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b05492c-f9ce-4c5b-a7f0-6a1dcedad8db",
+              "name": "List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "status",
+                      "value": "retrying"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3d34f00-9ef3-4900-b8e3-44d42abd12bf",
+          "name": "Get a specific delivery",
+          "request": {
+            "name": "Get a specific delivery",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints",
+                ":endpoint_id",
+                "deliveries",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "endpoint_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2da78745-6e7c-4ff1-ac4a-7eab24fa474c",
+              "name": "Fetch details of a single webhook delivery attempt including payload, status, and retry information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"delivery\": {\n    \"attempt_number\": 3,\n    \"created_at\": \"2017-02-03T04:05:06.000Z\",\n    \"delivered_at\": null,\n    \"duration_ms\": null,\n    \"endpoint_id\": 16,\n    \"id\": 20,\n    \"last_attempt_failure_reason\": null,\n    \"last_attempted_at\": null,\n    \"next_retry_at\": null,\n    \"payload\": {\n      \"data\": {\n        \"insurance_policy_id\": 1\n      },\n      \"event\": \"policy.created\"\n    },\n    \"status\": \"failed\",\n    \"updated_at\": \"2017-02-03T04:05:06.000Z\"\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c2b912f-9796-454a-8760-26b16ccd52fd",
+              "name": "Fetch details of a single webhook delivery attempt including payload, status, and retry information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11baa3e9-86f2-4f83-a478-8338a1e9cf17",
+              "name": "Fetch details of a single webhook delivery attempt including payload, status, and retry information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "275568df-d382-468b-8f9e-1b47fc94dbc5",
+          "name": "Retry a failed delivery",
+          "request": {
+            "name": "Retry a failed delivery",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints",
+                ":endpoint_id",
+                "deliveries",
+                ":id",
+                "retry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "endpoint_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76ba71a9-3517-45e0-b5c2-e0180ddf1dd8",
+              "name": "Re-enqueue a failed webhook delivery for another attempt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96528d9c-89e8-4ec1-979f-60f2fc9d30e2",
+              "name": "Re-enqueue a failed webhook delivery for another attempt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "188a180d-60e6-4bf7-b6d0-165a8495ab28",
+              "name": "Re-enqueue a failed webhook delivery for another attempt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":endpoint_id",
+                    "deliveries",
+                    ":id",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "endpoint_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da61d1f2-a750-4ce9-9f27-0d4eb8c90c45",
+          "name": "Delete a webhook endpoint",
+          "request": {
+            "name": "Delete a webhook endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49aa7d30-4b43-4e6e-9924-91592e109db7",
+              "name": "Permanently remove a webhook endpoint. All pending deliveries will be cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72c0f380-d5ea-4e84-bdc8-64ed0171ff35",
+              "name": "Permanently remove a webhook endpoint. All pending deliveries will be cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb2f2d37-b162-4501-9767-a6de13499b0a",
+              "name": "Permanently remove a webhook endpoint. All pending deliveries will be cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73baf376-31e3-4d6e-a500-802a9f0b3798",
+          "name": "Update a webhook endpoint",
+          "request": {
+            "name": "Update a webhook endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "webhooks",
+                "endpoints",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"<string>\",\n    \"events\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"status\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d7087b78-0991-447d-941c-d179e83db512",
+              "name": "Update an existing webhook endpoint's destination URL, status, or subscribed events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\",\n      \"prospect.updated\"\n    ],\n    \"status\": \"suspended\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": {\n    \"created_at\": \"2017-02-03T04:05:06.000Z\",\n    \"destination_url\": \"https://example.com/webhooks/foo/bar\",\n    \"events\": [\n      \"prospect.created\",\n      \"prospect.ready\",\n      \"prospect.incomplete\",\n      \"policy.created\",\n      \"policy.updated\",\n      \"policy.canceled\",\n      \"policy.expired\",\n      \"policy.documents_updated\",\n      \"policy_application.created\",\n      \"policy_application.quoted\",\n      \"policy_application.declined\",\n      \"policy_application.submitted\",\n      \"delinquency.created\",\n      \"delinquency.resolved\"\n    ],\n    \"id\": 34,\n    \"name\": \"Test endpoint\",\n    \"status\": \"suspended\",\n    \"suspension_reason\": null,\n    \"updated_at\": \"2017-02-03T04:05:06.000Z\"\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0ec0268-2d3b-4f16-9c07-59fb4debfa60",
+              "name": "Update an existing webhook endpoint's destination URL, status, or subscribed events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\",\n      \"prospect.updated\"\n    ],\n    \"status\": \"suspended\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb8656e4-c602-41bf-9b4c-a437c77a6de6",
+              "name": "Update an existing webhook endpoint's destination URL, status, or subscribed events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\",\n      \"prospect.updated\"\n    ],\n    \"status\": \"suspended\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c194c5be-8a1d-4b3a-8e79-e3fd97b24886",
+              "name": "Update an existing webhook endpoint's destination URL, status, or subscribed events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "webhooks",
+                    "endpoints",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endpoint\": {\n    \"destination_url\": \"https://new-url.example.com/hook\",\n    \"events\": [\n      \"prospect.created\",\n      \"prospect.updated\"\n    ],\n    \"status\": \"suspended\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": {\n    \"destination_url\": \"Destination url must use HTTPS\",\n    \"status\": \"Status is invalid\"\n  },\n  \"error\": \"Endpoint invalid.\",\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "24f25cc9-492f-4a8e-94bd-ccb027b9315f",
+    "name": "SayRhino Partner API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for third-party partners to create and manage insurance prospects through the SayRhino platform.",
+      "type": "text/plain"
+    }
+  }
+}

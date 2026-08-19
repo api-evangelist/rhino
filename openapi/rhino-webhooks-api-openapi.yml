@@ -1,0 +1,783 @@
+openapi: 3.2.0
+info:
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino
+    platform.
+  title: SayRhino Partner Webhooks API
+  version: v2
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+paths:
+  /partners/{owner_slug}/webhooks/endpoints:
+    get:
+      parameters:
+      - example: pauline-toy-iii-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                endpoints: []
+                status_code: 200
+              schema:
+                properties:
+                  endpoints:
+                    items:
+                      properties:
+                        created_at:
+                          format: date-time
+                          type: string
+                        destination_url:
+                          type: string
+                        events:
+                          items:
+                            type: string
+                          type: array
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        status:
+                          type: string
+                        suspension_reason: {}
+                        updated_at:
+                          format: date-time
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - destination_url
+                      - status
+                      - events
+                      - suspension_reason
+                      - created_at
+                      - updated_at
+                      type: object
+                    type: array
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - endpoints
+                type: object
+          description: List all webhook endpoints configured for a property owner.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: List all webhook endpoints configured for a property owner.
+        '404':
+          description: List all webhook endpoints configured for a property owner.
+      summary: List webhook endpoints
+      tags:
+      - Webhooks
+    post:
+      parameters:
+      - example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: chase-nienow-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              endpoint:
+                destination_url: https://new-url.example.com/hook
+                events:
+                - prospect.created
+                name: New Endpoint
+            schema:
+              properties:
+                endpoint:
+                  properties:
+                    destination_url:
+                      type: string
+                    events:
+                      items:
+                        type: string
+                      type: array
+                    name:
+                      type: string
+                  required:
+                  - destination_url
+                  - name
+                  - events
+                  type: object
+              required:
+              - endpoint
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                endpoint:
+                  created_at: '2017-02-03T04:05:06.000Z'
+                  destination_url: https://new-url.example.com/hook
+                  events:
+                  - prospect.created
+                  id: 30
+                  name: New Endpoint
+                  status: active
+                  suspension_reason: null
+                  updated_at: '2017-02-03T04:05:06.000Z'
+                status_code: 200
+              schema:
+                properties:
+                  endpoint:
+                    properties:
+                      created_at:
+                        format: date-time
+                        type: string
+                      destination_url:
+                        type: string
+                      events:
+                        items:
+                          type: string
+                        type: array
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      status:
+                        enum:
+                        - active
+                        - suspended
+                        - disabled
+                        type: string
+                      suspension_reason: {}
+                      updated_at:
+                        format: date-time
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - destination_url
+                    - status
+                    - events
+                    - suspension_reason
+                    - created_at
+                    - updated_at
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - endpoint
+                type: object
+          description: Register a new webhook endpoint to receive event notifications. The destination
+            URL must use HTTPS.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: Register a new webhook endpoint to receive event notifications. The destination
+            URL must use HTTPS.
+        '422':
+          content:
+            application/json:
+              example:
+                endpoint:
+                  destination_url: Destination url must use HTTPS
+                error: Invalid endpoint params.
+                status_code: 422
+              schema:
+                properties:
+                  endpoint:
+                    properties:
+                      destination_url:
+                        type: string
+                    required:
+                    - destination_url
+                    type: object
+                  error:
+                    type: string
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                - endpoint
+                type: object
+          description: Register a new webhook endpoint to receive event notifications. The destination
+            URL must use HTTPS.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+      summary: Create a webhook endpoint
+      tags:
+      - Webhooks
+  /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries:
+    get:
+      parameters:
+      - example: 15
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: integer
+      - example: granville-hermiston-cpa-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      - example: 2
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+      - example: 2
+        in: query
+        name: per_page
+        required: false
+        schema:
+          type: integer
+      - example: retrying
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                deliveries:
+                - attempt_number: 1
+                  created_at: '2017-02-03T04:05:06.000Z'
+                  delivered_at: null
+                  duration_ms: null
+                  endpoint_id: 9
+                  id: 17
+                  last_attempt_failure_reason: null
+                  last_attempted_at: null
+                  next_retry_at: null
+                  payload:
+                    data:
+                      insurance_policy_id: 1
+                    event: policy.created
+                  status: pending
+                  updated_at: '2017-02-03T04:05:06.000Z'
+                meta:
+                  page: 2
+                  per_page: 2
+                  total_count: 3
+                  total_pages: 2
+                status_code: 200
+              schema:
+                properties:
+                  deliveries:
+                    items:
+                      properties:
+                        attempt_number:
+                          type: integer
+                        created_at:
+                          format: date-time
+                          type: string
+                        delivered_at:
+                          format: date-time
+                          type:
+                          - string
+                          - 'null'
+                        duration_ms: {}
+                        endpoint_id:
+                          type: integer
+                        id:
+                          type: integer
+                        last_attempt_failure_reason: {}
+                        last_attempted_at:
+                          format: date-time
+                          type:
+                          - string
+                          - 'null'
+                        next_retry_at:
+                          format: date-time
+                          type:
+                          - string
+                          - 'null'
+                        payload:
+                          properties:
+                            data:
+                              properties:
+                                insurance_policy_id:
+                                  type: integer
+                              required:
+                              - insurance_policy_id
+                              type: object
+                            event:
+                              type: string
+                          required:
+                          - data
+                          - event
+                          type: object
+                        status:
+                          enum:
+                          - pending
+                          - delivering
+                          - delivered
+                          - retrying
+                          - rate_limited
+                          - failed
+                          type: string
+                        updated_at:
+                          format: date-time
+                          type: string
+                      required:
+                      - id
+                      - endpoint_id
+                      - status
+                      - attempt_number
+                      - payload
+                      - last_attempted_at
+                      - delivered_at
+                      - next_retry_at
+                      - last_attempt_failure_reason
+                      - duration_ms
+                      - created_at
+                      - updated_at
+                      type: object
+                    type: array
+                  meta:
+                    properties:
+                      page:
+                        type: integer
+                      per_page:
+                        type: integer
+                      total_count:
+                        type: integer
+                      total_pages:
+                        type: integer
+                    required:
+                    - page
+                    - per_page
+                    - total_count
+                    - total_pages
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - deliveries
+                - meta
+                type: object
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
+            and pagination.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
+            and pagination.
+        '404':
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
+            and pagination.
+      summary: List deliveries for an endpoint
+      tags:
+      - Webhooks
+  /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}:
+    get:
+      parameters:
+      - example: 21
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: integer
+      - example: 25
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - example: otto-kirlin-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                delivery:
+                  attempt_number: 3
+                  created_at: '2017-02-03T04:05:06.000Z'
+                  delivered_at: null
+                  duration_ms: null
+                  endpoint_id: 16
+                  id: 20
+                  last_attempt_failure_reason: null
+                  last_attempted_at: null
+                  next_retry_at: null
+                  payload:
+                    data:
+                      insurance_policy_id: 1
+                    event: policy.created
+                  status: failed
+                  updated_at: '2017-02-03T04:05:06.000Z'
+                status_code: 200
+              schema:
+                properties:
+                  delivery:
+                    properties:
+                      attempt_number:
+                        type: integer
+                      created_at:
+                        format: date-time
+                        type: string
+                      delivered_at:
+                        format: date-time
+                        type:
+                        - string
+                        - 'null'
+                      duration_ms: {}
+                      endpoint_id:
+                        type: integer
+                      id:
+                        type: integer
+                      last_attempt_failure_reason: {}
+                      last_attempted_at:
+                        format: date-time
+                        type:
+                        - string
+                        - 'null'
+                      next_retry_at:
+                        format: date-time
+                        type:
+                        - string
+                        - 'null'
+                      payload:
+                        properties:
+                          data:
+                            properties:
+                              insurance_policy_id:
+                                type: integer
+                            required:
+                            - insurance_policy_id
+                            type: object
+                          event:
+                            type: string
+                        required:
+                        - data
+                        - event
+                        type: object
+                      status:
+                        enum:
+                        - pending
+                        - delivering
+                        - delivered
+                        - retrying
+                        - rate_limited
+                        - failed
+                        type: string
+                      updated_at:
+                        format: date-time
+                        type: string
+                    required:
+                    - id
+                    - endpoint_id
+                    - status
+                    - attempt_number
+                    - payload
+                    - last_attempted_at
+                    - delivered_at
+                    - next_retry_at
+                    - last_attempt_failure_reason
+                    - duration_ms
+                    - created_at
+                    - updated_at
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - delivery
+                type: object
+          description: Fetch details of a single webhook delivery attempt including payload, status, and
+            retry information.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: Fetch details of a single webhook delivery attempt including payload, status, and
+            retry information.
+        '404':
+          description: Fetch details of a single webhook delivery attempt including payload, status, and
+            retry information.
+      summary: Get a specific delivery
+      tags:
+      - Webhooks
+  /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry:
+    post:
+      parameters:
+      - example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: 27
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: integer
+      - example: 31
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - example: johanne-senger-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example: {}
+            schema:
+              properties: {}
+              type: object
+      responses:
+        '204':
+          description: Re-enqueue a failed webhook delivery for another attempt.
+        '401':
+          description: Re-enqueue a failed webhook delivery for another attempt.
+        '404':
+          description: Re-enqueue a failed webhook delivery for another attempt.
+      summary: Retry a failed delivery
+      tags:
+      - Webhooks
+  /partners/{owner_slug}/webhooks/endpoints/{id}:
+    delete:
+      parameters:
+      - example: application/x-www-form-urlencoded
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: 50
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - example: mrs-josefa-morissette-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Permanently remove a webhook endpoint. All pending deliveries will be cancelled.
+        '401':
+          description: Permanently remove a webhook endpoint. All pending deliveries will be cancelled.
+        '404':
+          description: Permanently remove a webhook endpoint. All pending deliveries will be cancelled.
+      summary: Delete a webhook endpoint
+      tags:
+      - Webhooks
+    put:
+      parameters:
+      - example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: 42
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - example: ying-stiedemann-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              endpoint:
+                destination_url: https://new-url.example.com/hook
+                events:
+                - prospect.created
+                - prospect.updated
+                status: suspended
+            schema:
+              properties:
+                endpoint:
+                  properties:
+                    destination_url:
+                      type: string
+                    events:
+                      items:
+                        type: string
+                      type: array
+                    status:
+                      enum:
+                      - active
+                      - suspended
+                      - disabled
+                      type: string
+                  type: object
+              required:
+              - endpoint
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                endpoint:
+                  created_at: '2017-02-03T04:05:06.000Z'
+                  destination_url: https://example.com/webhooks/foo/bar
+                  events:
+                  - prospect.created
+                  - prospect.ready
+                  - prospect.incomplete
+                  - policy.created
+                  - policy.updated
+                  - policy.canceled
+                  - policy.expired
+                  - policy.documents_updated
+                  - policy_application.created
+                  - policy_application.quoted
+                  - policy_application.declined
+                  - policy_application.submitted
+                  - delinquency.created
+                  - delinquency.resolved
+                  id: 34
+                  name: Test endpoint
+                  status: suspended
+                  suspension_reason: null
+                  updated_at: '2017-02-03T04:05:06.000Z'
+                status_code: 200
+              schema:
+                properties:
+                  endpoint:
+                    properties:
+                      created_at:
+                        format: date-time
+                        type: string
+                      destination_url:
+                        type: string
+                      events:
+                        items:
+                          type: string
+                        type: array
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      status:
+                        enum:
+                        - active
+                        - suspended
+                        - disabled
+                        type: string
+                      suspension_reason: {}
+                      updated_at:
+                        format: date-time
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - destination_url
+                    - status
+                    - events
+                    - suspension_reason
+                    - created_at
+                    - updated_at
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - endpoint
+                type: object
+          description: Update an existing webhook endpoint's destination URL, status, or subscribed events.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: Update an existing webhook endpoint's destination URL, status, or subscribed events.
+        '404':
+          description: Update an existing webhook endpoint's destination URL, status, or subscribed events.
+        '422':
+          content:
+            application/json:
+              example:
+                endpoint:
+                  destination_url: Destination url must use HTTPS
+                  status: Status is invalid
+                error: Endpoint invalid.
+                status_code: 422
+              schema:
+                properties:
+                  endpoint:
+                    properties:
+                      destination_url:
+                        type: string
+                      status:
+                        enum:
+                        - active
+                        - suspended
+                        - disabled
+                        type: string
+                    type: object
+                  error:
+                    type: string
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                - endpoint
+                type: object
+          description: Update an existing webhook endpoint's destination URL, status, or subscribed events.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+      summary: Update a webhook endpoint
+      tags:
+      - Webhooks
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SayRhino Partner Partner Api::V2::Test::Resident API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PartnerApi::V2::Test::Resident",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partners/:owner_slug/test/residents/:source/:source_prospect_id",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "colette-schiller-1",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "yardi",
+                "type": "path"
+              },
+              {
+                "name": "source_prospect_id",
+                "value": "resident-123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "destroy"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

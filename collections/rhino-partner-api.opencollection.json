@@ -1,0 +1,397 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "SayRhino Partner API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prospects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partners/:owner_slug/prospects",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "shelby-green-ii-1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update a prospect"
+        },
+        {
+          "info": {
+            "name": "Get prospect by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partners/:owner_slug/prospects/:source/:source_prospect_id",
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "denita-strosin-esq-1",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "vero",
+                "type": "path"
+              },
+              {
+                "name": "source_prospect_id",
+                "value": "3pp-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get prospect by ID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PartnerApi::V2::Test::Resident",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partners/:owner_slug/test/residents/:source/:source_prospect_id",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "colette-schiller-1",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "yardi",
+                "type": "path"
+              },
+              {
+                "name": "source_prospect_id",
+                "value": "resident-123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "destroy"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PartnerApi::V2::Test::SayrhinoUser",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partners/:owner_slug/test/sayrhino_users",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "kendall-volkman-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "destroy"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints",
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "pauline-toy-iii-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List webhook endpoints"
+        },
+        {
+          "info": {
+            "name": "Create a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "owner_slug",
+                "value": "chase-nienow-1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook endpoint"
+        },
+        {
+          "info": {
+            "name": "List deliveries for an endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints/:endpoint_id/deliveries",
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "15",
+                "type": "path"
+              },
+              {
+                "name": "owner_slug",
+                "value": "granville-hermiston-cpa-1",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "2",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "retrying",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List deliveries for an endpoint"
+        },
+        {
+          "info": {
+            "name": "Get a specific delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints/:endpoint_id/deliveries/:id",
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "21",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "25",
+                "type": "path"
+              },
+              {
+                "name": "owner_slug",
+                "value": "otto-kirlin-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a specific delivery"
+        },
+        {
+          "info": {
+            "name": "Retry a failed delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints/:endpoint_id/deliveries/:id/retry",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "27",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "31",
+                "type": "path"
+              },
+              {
+                "name": "owner_slug",
+                "value": "johanne-senger-1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retry a failed delivery"
+        },
+        {
+          "info": {
+            "name": "Update a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints/:id",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "42",
+                "type": "path"
+              },
+              {
+                "name": "owner_slug",
+                "value": "ying-stiedemann-1",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a webhook endpoint"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partners/:owner_slug/webhooks/endpoints/:id",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "50",
+                "type": "path"
+              },
+              {
+                "name": "owner_slug",
+                "value": "mrs-josefa-morissette-1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a webhook endpoint"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Obtain a JWT via OAuth2 client_credentials grant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

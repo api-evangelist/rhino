@@ -1,0 +1,680 @@
+{
+  "item": [
+    {
+      "id": "62421cbf-8062-462c-9721-6e67689dc841",
+      "name": "Prospects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "51a589c7-15f0-4b91-ae33-1e0b2fb3b0f1",
+          "name": "Create or update a prospect",
+          "request": {
+            "name": "Create or update a prospect",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "prospects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prospect\": {\n    \"source\": \"<string>\",\n    \"source_prospect_id\": \"<string>\",\n    \"birthdate\": \"<string>\",\n    \"citizenship\": \"<string>\",\n    \"deposit_amount_cents\": \"<integer>\",\n    \"education_level\": \"<string>\",\n    \"email\": \"<string>\",\n    \"employment_status\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"has_ssn\": \"<boolean>\",\n    \"last_name\": \"<string>\",\n    \"lease_end_date\": \"<string>\",\n    \"lease_start_date\": \"<string>\",\n    \"monthly_rent_cents\": \"<integer>\",\n    \"phone\": \"<string>\",\n    \"pms_property_id\": \"<string>\",\n    \"pms_prospect_id\": \"<string>\",\n    \"pms_type\": \"<string>\",\n    \"pms_unit_id\": \"<string>\",\n    \"screening_result\": \"<string>\",\n    \"social_security_number\": \"<string>\",\n    \"terms_accepted_at\": \"<dateTime>\",\n    \"yearly_income\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "373b50cd-4b9e-49c7-a391-50a1fff6a536",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-05-15\",\n    \"deposit_amount_cents\": 250000,\n    \"effective_coverage_amount_cents\": 250000,\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"id\": 43,\n    \"last_name\": \"Doe\",\n    \"latest_coverage\": null,\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"offered_products\": [\n      {\n        \"monthly_enrollment_url\": null,\n        \"monthly_premium_cents\": 1000,\n        \"product_type\": \"security_deposit_insurance\",\n        \"upfront_enrollment_url\": null,\n        \"upfront_premium_cents\": 10000\n      },\n      {\n        \"cash_deposit_amount_cents\": 100000,\n        \"enrollment_url\": null,\n        \"product_type\": \"cash_deposit\"\n      }\n    ],\n    \"percent_savings\": 99.6,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b36ca50a-db18-4163-9e7c-e329aedc99a8",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-05-15\",\n    \"deposit_amount_cents\": 250000,\n    \"effective_coverage_amount_cents\": 250000,\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"id\": 33,\n    \"last_name\": \"Doe\",\n    \"latest_coverage\": null,\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"offered_products\": [],\n    \"percent_savings\": null,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 201\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a51bddf-0db9-4836-a66e-528e97fd52b4",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c5981e59-d27e-4d56-ac56-a867b6950c03",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2956bff-26e1-4f58-9293-5748a046ba99",
+              "name": "Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prospect\": {\n    \"birthdate\": \"1990-05-15\",\n    \"citizenship\": \"us_or_green_card\",\n    \"deposit_amount_cents\": 250000,\n    \"education_level\": \"bachelor_degree\",\n    \"email\": \"newprospect@example.com\",\n    \"employment_status\": \"employed\",\n    \"first_name\": \"John\",\n    \"has_ssn\": true,\n    \"last_name\": \"Doe\",\n    \"lease_end_date\": \"2026-01-31\",\n    \"lease_start_date\": \"2025-02-01\",\n    \"monthly_rent_cents\": 200000,\n    \"phone\": \"5559876543\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"social_security_number\": \"100010001\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"new-prospect-123\",\n    \"terms_accepted_at\": \"2025-01-15T10:30:00Z\",\n    \"yearly_income\": 75000\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Prospect invalid.\",\n  \"prospect\": {\n    \"enrollment_source\": \"Enrollment source must exist\",\n    \"source\": \"Source is not included in the list\"\n  },\n  \"status_code\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c13fb3c5-e615-4058-ba68-495e7f38653b",
+          "name": "Get prospect by ID",
+          "request": {
+            "name": "Get prospect by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "partners",
+                ":owner_slug",
+                "prospects",
+                ":source",
+                ":source_prospect_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_slug",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source_prospect_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da8bdb9e-2bb2-479e-861a-e8becbcde6e4",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"prospect\": {\n    \"application_submitted\": false,\n    \"birthdate\": \"1990-01-01\",\n    \"deposit_amount_cents\": 300000,\n    \"effective_coverage_amount_cents\": 300000,\n    \"email\": \"test1@example.com\",\n    \"employment_status\": \"employed\",\n    \"enrollment_url\": null,\n    \"first_name\": \"Robbie\",\n    \"has_ssn\": true,\n    \"id\": 19,\n    \"last_name\": \"Rhino\",\n    \"latest_coverage\": {\n      \"cadence\": \"upfront\",\n      \"coverage_amount_cents\": 200000,\n      \"coverage_end_date\": \"2026-01-31\",\n      \"coverage_start_date\": \"2025-02-01\",\n      \"document_url\": \"https://www.sayrhino.com/policies/123/documents\",\n      \"product_payment_cents\": 15000,\n      \"type\": \"security_deposit_insurance\"\n    },\n    \"lease_end_date\": \"2018-02-03\",\n    \"lease_start_date\": \"2017-02-10\",\n    \"monthly_rent_cents\": 150000,\n    \"offered_products\": [],\n    \"percent_savings\": null,\n    \"phone\": \"5551234567\",\n    \"pms_property_id\": \"prop-123\",\n    \"pms_prospect_id\": \"prospect-789\",\n    \"pms_type\": \"yardi\",\n    \"pms_unit_id\": \"unit-456\",\n    \"screening_result\": \"approved\",\n    \"source\": \"vero\",\n    \"source_prospect_id\": \"3pp-1\",\n    \"status\": \"processing\",\n    \"yearly_income\": 75000\n  },\n  \"status_code\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2493739d-0b6f-4f2c-9698-b5cb78f5d078",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74ecb19b-2d25-4d81-84e9-380b65008f86",
+              "name": "Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partners",
+                    ":owner_slug",
+                    "prospects",
+                    ":source",
+                    ":source_prospect_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_slug",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_prospect_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f0339ab4-6e0f-4e79-84f4-db1c7f91a397",
+    "name": "SayRhino Partner Prospects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for third-party partners to create and manage insurance prospects through the SayRhino platform.",
+      "type": "text/plain"
+    }
+  }
+}

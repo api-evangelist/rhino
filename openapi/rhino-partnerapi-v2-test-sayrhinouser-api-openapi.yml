@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino
+    platform.
+  title: SayRhino Partner Partner Api::V2::Test::Sayrhino User API
+  version: v2
+security:
+- bearerAuth: []
+tags:
+- name: PartnerApi::V2::Test::SayrhinoUser
+paths:
+  /partners/{owner_slug}/test/sayrhino_users:
+    delete:
+      parameters:
+      - example: application/json
+        in: header
+        name: Content-Type
+        required: true
+        schema:
+          type: string
+      - example: kendall-volkman-1
+        in: path
+        name: owner_slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                reset:
+                  deleted_third_party_prospect_ids:
+                  - 16
+                  insurance_policy_ids:
+                  - 16
+                  third_party_prospect_ids:
+                  - 16
+                  unlinked_yardi_resident_ids:
+                  - 16
+                status_code: 200
+              schema:
+                properties:
+                  reset:
+                    properties:
+                      deleted_third_party_prospect_ids:
+                        items:
+                          type: integer
+                        type: array
+                      insurance_policy_ids:
+                        items:
+                          type: integer
+                        type: array
+                      third_party_prospect_ids:
+                        items:
+                          type: integer
+                        type: array
+                      unlinked_yardi_resident_ids:
+                        items:
+                          type: integer
+                        type: array
+                    required:
+                    - insurance_policy_ids
+                    - third_party_prospect_ids
+                    - unlinked_yardi_resident_ids
+                    - deleted_third_party_prospect_ids
+                    type: object
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - reset
+                type: object
+          description: runs the reset and returns success
+          headers:
+            Content-Type:
+              schema:
+                type: string
+        '401':
+          description: returns unauthorized
+        '404':
+          description: returns not found
+        '422':
+          content:
+            application/json:
+              example:
+                error: 'RuntimeError: SayRhino teardown failed (500): {"error" => "kaboom"}'
+                status_code: 422
+              schema:
+                properties:
+                  error:
+                    type: string
+                  status_code:
+                    type: integer
+                required:
+                - status_code
+                - error
+                type: object
+          description: returns unprocessable entity with the error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+      summary: destroy
+      tags:
+      - PartnerApi::V2::Test::SayrhinoUser
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

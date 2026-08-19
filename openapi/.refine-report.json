@@ -1,0 +1,29 @@
+{
+  "provider": "rhino",
+  "sources": [
+    "rhino-authentication-api-openapi.yml",
+    "rhino-partnerapi-v2-test-resident-api-openapi.yml",
+    "rhino-partnerapi-v2-test-sayrhinouser-api-openapi.yml",
+    "rhino-prospects-api-openapi.yml",
+    "rhino-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "rhino-authentication-api-openapi.yml",
+    "rhino-partnerapi-v2-test-resident-api-openapi.yml",
+    "rhino-partnerapi-v2-test-sayrhinouser-api-openapi.yml",
+    "rhino-prospects-api-openapi.yml",
+    "rhino-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "rhino-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "rhino-partnerapi-v2-test-resident-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "rhino-partnerapi-v2-test-sayrhinouser-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "rhino-prospects-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "rhino-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}
