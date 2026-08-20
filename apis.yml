@@ -26,6 +26,16 @@ x-enrichment:
 tags:
 - Insurance
 - Insurtech
+- Real-Estate
+- Property Management
+- Rentals
+- Security Deposits
+- Renters Insurance
+- Webhook
+- Partner API
+tags_raw:
+- Insurance
+- Insurtech
 - Real Estate
 - Property Management
 - Rentals
@@ -98,6 +108,8 @@ apis:
   humanURL: https://api.prod.sayrhino.com/docs
   baseURL: https://api.prod.sayrhino.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
