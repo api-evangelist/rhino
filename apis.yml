@@ -11,6 +11,18 @@ description: 'Rhino (SayRhino) is a New York based insurtech that replaces the t
   and updating insurance prospects, reading eligibility offers and coverage, and managing
   webhook endpoints and deliveries across fifteen prospect, policy, policy-application
   and delinquency events.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.sayrhino.com/assets/rhino_favicon_website_144x144-b7265da417b6731f322eeccf89a6313a3387099dd046a807b4cabe32db0d228e.png
 url: https://raw.githubusercontent.com/api-evangelist/rhino/refs/heads/main/apis.yml
 x-type: company
