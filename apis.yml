@@ -136,6 +136,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/rhino-capability-edges.yml
+  name: Rhino Business Capability Map
 - type: AgenticAccess
   url: agentic-access/rhino-agentic-access.yml
 - type: DomainSecurity
