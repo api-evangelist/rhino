@@ -1,7 +1,6 @@
 openapi: 3.2.0
 info:
-  description: API for third-party partners to create and manage insurance prospects through the SayRhino
-    platform.
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino platform.
   title: SayRhino Partner Partner Api::V2::Test::Sayrhino User API
   version: v2
 security:
@@ -104,6 +103,8 @@ paths:
       summary: destroy
       tags:
       - PartnerApi::V2::Test::SayrhinoUser
+      operationId: deletePartnersByOwnerSlugTestSayrhinoUsers
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

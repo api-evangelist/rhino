@@ -1,7 +1,6 @@
 openapi: 3.2.0
 info:
-  description: API for third-party partners to create and manage insurance prospects through the SayRhino
-    platform.
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino platform.
   title: SayRhino Partner Prospects API
   version: v2
 security:
@@ -345,9 +344,7 @@ paths:
                 - status_code
                 - prospect
                 type: object
-          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
-            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
-            the prospect with current eligibility status and offered products.
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.
           headers:
             Content-Type:
               schema:
@@ -496,21 +493,15 @@ paths:
                 - status_code
                 - prospect
                 type: object
-          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
-            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
-            the prospect with current eligibility status and offered products.
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.
           headers:
             Content-Type:
               schema:
                 type: string
         '401':
-          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
-            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
-            the prospect with current eligibility status and offered products.
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.
         '404':
-          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
-            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
-            the prospect with current eligibility status and offered products.
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.
         '422':
           content:
             application/json:
@@ -540,9 +531,7 @@ paths:
                 - error
                 - prospect
                 type: object
-          description: Submit prospect data for eligibility evaluation. If a prospect with the same source
-            + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns
-            the prospect with current eligibility status and offered products.
+          description: Submit prospect data for eligibility evaluation. If a prospect with the same source + source_prospect_id already exists for the property owner, it will be updated (upsert). Returns the prospect with current eligibility status and offered products.
           headers:
             Content-Type:
               schema:
@@ -550,6 +539,8 @@ paths:
       summary: Create or update a prospect
       tags:
       - Prospects
+      operationId: postPartnersByOwnerSlugProspects
+      x-operation-id-source: derived
   /partners/{owner_slug}/prospects/{source}/{source_prospect_id}:
     get:
       parameters:
@@ -777,21 +768,20 @@ paths:
                 - status_code
                 - prospect
                 type: object
-          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
-            this to check whether a prospect has been processed and what products are available.
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.
           headers:
             Content-Type:
               schema:
                 type: string
         '401':
-          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
-            this to check whether a prospect has been processed and what products are available.
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.
         '404':
-          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use
-            this to check whether a prospect has been processed and what products are available.
+          description: Fetch a prospect's current status, eligibility offers, and coverage details. Use this to check whether a prospect has been processed and what products are available.
       summary: Get prospect by ID
       tags:
       - Prospects
+      operationId: getPartnersByOwnerSlugProspectsBySourceBySourceProspectId
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

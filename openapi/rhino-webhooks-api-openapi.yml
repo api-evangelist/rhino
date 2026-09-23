@@ -1,7 +1,6 @@
 openapi: 3.2.0
 info:
-  description: API for third-party partners to create and manage insurance prospects through the SayRhino
-    platform.
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino platform.
   title: SayRhino Partner Webhooks API
   version: v2
 security:
@@ -78,6 +77,8 @@ paths:
       summary: List webhook endpoints
       tags:
       - Webhooks
+      operationId: getPartnersByOwnerSlugWebhooksEndpoints
+      x-operation-id-source: derived
     post:
       parameters:
       - example: application/json
@@ -180,15 +181,13 @@ paths:
                 - status_code
                 - endpoint
                 type: object
-          description: Register a new webhook endpoint to receive event notifications. The destination
-            URL must use HTTPS.
+          description: Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.
           headers:
             Content-Type:
               schema:
                 type: string
         '401':
-          description: Register a new webhook endpoint to receive event notifications. The destination
-            URL must use HTTPS.
+          description: Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.
         '422':
           content:
             application/json:
@@ -215,8 +214,7 @@ paths:
                 - error
                 - endpoint
                 type: object
-          description: Register a new webhook endpoint to receive event notifications. The destination
-            URL must use HTTPS.
+          description: Register a new webhook endpoint to receive event notifications. The destination URL must use HTTPS.
           headers:
             Content-Type:
               schema:
@@ -224,6 +222,8 @@ paths:
       summary: Create a webhook endpoint
       tags:
       - Webhooks
+      operationId: postPartnersByOwnerSlugWebhooksEndpoints
+      x-operation-id-source: derived
   /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries:
     get:
       parameters:
@@ -380,21 +380,20 @@ paths:
                 - deliveries
                 - meta
                 type: object
-          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
-            and pagination.
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.
           headers:
             Content-Type:
               schema:
                 type: string
         '401':
-          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
-            and pagination.
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.
         '404':
-          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status
-            and pagination.
+          description: List webhook delivery attempts for a specific endpoint. Supports filtering by status and pagination.
       summary: List deliveries for an endpoint
       tags:
       - Webhooks
+      operationId: getPartnersByOwnerSlugWebhooksEndpointsByEndpointIdDeliveries
+      x-operation-id-source: derived
   /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}:
     get:
       parameters:
@@ -515,21 +514,20 @@ paths:
                 - status_code
                 - delivery
                 type: object
-          description: Fetch details of a single webhook delivery attempt including payload, status, and
-            retry information.
+          description: Fetch details of a single webhook delivery attempt including payload, status, and retry information.
           headers:
             Content-Type:
               schema:
                 type: string
         '401':
-          description: Fetch details of a single webhook delivery attempt including payload, status, and
-            retry information.
+          description: Fetch details of a single webhook delivery attempt including payload, status, and retry information.
         '404':
-          description: Fetch details of a single webhook delivery attempt including payload, status, and
-            retry information.
+          description: Fetch details of a single webhook delivery attempt including payload, status, and retry information.
       summary: Get a specific delivery
       tags:
       - Webhooks
+      operationId: getPartnersByOwnerSlugWebhooksEndpointsByEndpointIdDeliveriesById
+      x-operation-id-source: derived
   /partners/{owner_slug}/webhooks/endpoints/{endpoint_id}/deliveries/{id}/retry:
     post:
       parameters:
@@ -574,6 +572,8 @@ paths:
       summary: Retry a failed delivery
       tags:
       - Webhooks
+      operationId: postPartnersByOwnerSlugWebhooksEndpointsByEndpointIdDeliveriesByIdRetry
+      x-operation-id-source: derived
   /partners/{owner_slug}/webhooks/endpoints/{id}:
     delete:
       parameters:
@@ -605,6 +605,8 @@ paths:
       summary: Delete a webhook endpoint
       tags:
       - Webhooks
+      operationId: deletePartnersByOwnerSlugWebhooksEndpointsById
+      x-operation-id-source: derived
     put:
       parameters:
       - example: application/json
@@ -775,6 +777,8 @@ paths:
       summary: Update a webhook endpoint
       tags:
       - Webhooks
+      operationId: putPartnersByOwnerSlugWebhooksEndpointsById
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

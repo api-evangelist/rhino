@@ -1,7 +1,6 @@
 openapi: 3.2.0
 info:
-  description: API for third-party partners to create and manage insurance prospects through the SayRhino
-    platform.
+  description: API for third-party partners to create and manage insurance prospects through the SayRhino platform.
   title: SayRhino Partner Authentication API
   version: v2
 security:
@@ -60,6 +59,8 @@ paths:
       summary: Request an access token
       tags:
       - Authentication
+      operationId: postToken
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:
