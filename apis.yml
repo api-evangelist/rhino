@@ -51,7 +51,7 @@ x-enrichment:
 tags:
 - Insurance
 - Insurtech
-- Real-Estate
+- Real Estate
 - Property Management
 - Rentals
 - Security Deposits
@@ -68,6 +68,7 @@ tags_raw:
 - Renters Insurance
 - Webhooks
 - Partner API
+- Real-Estate
 apis:
 - aid: rhino:rhino-authentication-api
   name: Rhino Authentication API
